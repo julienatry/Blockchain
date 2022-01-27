@@ -4,7 +4,7 @@
 
 *Chef de projet* : 
  - Rémy DUPEYROUX
- - 
+
 *Autres membres* : 
  - Julien ATRY
  - Victor LEHERICHER
