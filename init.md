@@ -1,5 +1,5 @@
 # Install dependencies
-sudo apt install open-ssh-server dsh
+sudo apt install openssh-server dsh
 
 # Config files to modify
 ## Configure DSH to use SSH instead of RSH
