@@ -1,5 +1,5 @@
 # Install dependencies
-sudo apt install openssh-server dsh
+sudo apt install openssh-server dsh nmap
 
 # Config files to modify
 ## Configure DSH to use SSH instead of RSH
