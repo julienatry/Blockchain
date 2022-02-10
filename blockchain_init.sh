@@ -28,6 +28,12 @@ echo "----------------"
 
 
 
+#Creating SSH keys
+ssh-keygen -f ~/.ssh/id_rsa -N "" -t rsa
+cp ~/.ssh/id_rsa.pub $sharedPubKey
+
+
+
 #DSH hosts list
 echo "Live blockchain hosts :"
 for i in $nmap_output
