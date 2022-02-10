@@ -9,6 +9,11 @@ randomValue=$RANDOM
 nmap_output=$(nmap $1 -n -sP $networkAddress | grep report | awk '{print $5}')
 
 
+#Verbose
+echo "Defined network address : $networkAddress"
+echo "Defined public key location : $sharedPubKey"
+echo "----------------"
+
 
 
 #NFS share
@@ -44,6 +49,11 @@ do
    if [ "${i##*.}" -gt "100" ] && [ "${i##*.}" -lt "200" ]
    then
       echo "Working on $i"
+      echo "----------------"
+
+      ssh-keyscan $i >> ~/.ssh/known_hosts
+      echo "----------------"
+
       mkdir /var/pubkey${i##*.}
       mount -t nfs $i:/mnt/pubkey${i##*.} /var/pubkey${i##*.}
       cat /var/pubkey${i##*.} >> ~/.ssh/authorized_keys
