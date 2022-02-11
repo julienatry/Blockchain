@@ -77,3 +77,5 @@ do
    fi
 done
 echo "----------------"
+
+bash ./blockchain_new_device.sh
