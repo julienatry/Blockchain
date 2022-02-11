@@ -17,6 +17,7 @@ fi
 #Variables
 nmap_output=$(nmap $1 -n -sP $networkAddress | grep report | awk '{print $5}')
 existing_exports=$(cat /etc/exports | grep /mnt/pubkey)
+rsa_file="~/.ssh/id_rsa"
 
 
 
@@ -46,8 +47,13 @@ echo "----------------"
 
 
 #Creating SSH keys
-ssh-keygen -f ~/.ssh/id_rsa -N "" -t rsa
-cp ~/.ssh/id_rsa.pub $sharedPubKey
+if [ -f $rsa_file ]; then
+   rm $rsa_file
+else
+   ssh-keygen -f $rsa_file -N "" -t rsa
+fi
+
+cp $rsa_file.pub $sharedPubKey
 
 
 bash ./blockchain_new_device.sh &
