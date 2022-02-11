@@ -43,39 +43,4 @@ ssh-keygen -f ~/.ssh/id_rsa -N "" -t rsa
 cp ~/.ssh/id_rsa.pub $sharedPubKey
 
 
-
-#DSH hosts list
-echo "Live blockchain hosts :"
-for i in $nmap_output
-do
-   if [ "${i##*.}" -gt "100" ] && [ "${i##*.}" -lt "200" ]
-   then
-      echo "$i"
-      echo "$i" >> /etc/dsh/group/blockchain
-   fi
-done
-cat /etc/dsh/group/blockchain >> /etc/dsh/machines.list
-echo "----------------"
-
-
-
-#Public SSH keys retrieving
-for i in $nmap_output
-do
-   if [ "${i##*.}" -gt "100" ] && [ "${i##*.}" -lt "200" ]
-   then
-      echo "----------------"
-      echo "Working on $i"
-      echo "----------------"
-
-      ssh-keyscan $i >> ~/.ssh/known_hosts
-      echo "----------------"
-
-      mkdir /var/pubkey${i##*.}
-      mount -t nfs $i:/mnt/pubkey /var/pubkey${i##*.}
-      cat /var/pubkey${i##*.}/id_rsa.pub >> ~/.ssh/authorized_keys
-   fi
-done
-echo "----------------"
-
 bash ./blockchain_new_device.sh

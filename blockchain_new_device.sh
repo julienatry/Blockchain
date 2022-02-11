@@ -18,6 +18,23 @@ fi
 
 
 
+
+
+#DSH hosts list
+echo "Live blockchain hosts :"
+for i in $nmap_output
+do
+   if [ "${i##*.}" -gt "100" ] && [ "${i##*.}" -lt "200" ]
+   then
+      echo "$i"
+      echo "$i" >> /etc/dsh/group/blockchain
+   fi
+done
+cat /etc/dsh/group/blockchain >> /etc/dsh/machines.list
+echo "----------------"
+
+
+
 #Public SSH keys retrieving
 while true
 do
