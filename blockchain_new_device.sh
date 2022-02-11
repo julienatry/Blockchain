@@ -49,7 +49,7 @@ do
 			ssh-keyscan $i >> ~/.ssh/known_hosts
 			echo "----------------"
 
-			if [ -d $pubkey_dir ]; then
+			if [ ! -d $pubkey_dir ]; then
 				#statements
 			fi
 			mkdir $pubkey_dir
