@@ -8,6 +8,8 @@ networkAddress="192.168.80.0/24"
 #Variables
 nmap_output=$(nmap $1 -n -sP $networkAddress | grep report | awk '{print $5}')
 known_hosts_exists=$(cat ~/.ssh/known_hosts | grep $ip | grep rsa)
+dsh_exists=$(cat $dsh_group | grep $ip)
+dsh_group="/etc/dsh/group/blockchain"
 pubkey_dir="/var/pubkey${ip##*.}"
 
 
@@ -30,10 +32,12 @@ do
 		if [ "${ip##*.}" -gt "100" ] && [ "${ip##*.}" -lt "200" ]
 		then
 			echo "$ip"
-			echo "$ip" >> /etc/dsh/group/blockchain
+			if [[ -z $dsh_exists ]]; then
+				echo "$ip" >> $dsh_group
+			fi
 		fi
 	done
-	cat /etc/dsh/group/blockchain >> /etc/dsh/machines.list
+	cat $dsh_group >> /etc/dsh/machines.list
 	echo "----------------"
 
 

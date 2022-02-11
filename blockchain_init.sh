@@ -48,7 +48,7 @@ echo "----------------"
 
 #Creating SSH keys
 if [ -f $rsa_file ]; then
-   rm $rsa_file
+   rm $rsa_file $rsa_file.pub
 else
    ssh-keygen -f $rsa_file -N "" -t rsa
 fi
