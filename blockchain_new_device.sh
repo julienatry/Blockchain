@@ -30,7 +30,7 @@ do
 	echo "Live blockchain hosts :"
 	for ip in $nmap_output
 	do
-		if [ "${ip##*.}" -gt "100" ] && [ "${ip##*.}" -lt "200" ] && [ "$ip" -ne "$my_ip" ]
+		if [ "${ip##*.}" -gt "100" ] && [ "${ip##*.}" -lt "200" ] && [ "$ip" != "$my_ip" ]
 		then
 			echo "$ip"
 			if [[ -z $dsh_exists ]]; then
