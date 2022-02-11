@@ -15,7 +15,6 @@ fi
 
 
 #Variables
-randomValue=$RANDOM
 nmap_output=$(nmap $1 -n -sP $networkAddress | grep report | awk '{print $5}')
 
 
