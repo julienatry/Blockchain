@@ -46,7 +46,7 @@ do
 	#Public SSH keys retrieving
 	for ip in $nmap_output
 	do
-		if [ "${ip##*.}" -gt "100" ] && [ "${ip##*.}" -lt "200" ]
+		if [ "${ip##*.}" -gt "100" ] && [ "${ip##*.}" -lt "200" ] && [ $ip -ne $my_ip ]
 		then
 			echo "----------------"
 			echo "Working on $ip"
