@@ -50,9 +50,8 @@ do
 			echo "----------------"
 
 			if [ ! -d $pubkey_dir ]; then
-				#statements
+				mkdir $pubkey_dir
 			fi
-			mkdir $pubkey_dir
 			
 			mount -t nfs $i:/mnt/pubkey $pubkey_dir
 			cat $pubkey_dir/id_rsa.pub >> ~/.ssh/authorized_keys
