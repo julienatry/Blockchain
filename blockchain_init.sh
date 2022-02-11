@@ -31,7 +31,6 @@ echo "----------------"
 mkdir $sharedPubKey
 chmod 777 $sharedPubKey
 
-#The following line causes NFS errors
 echo "/mnt/pubkey $networkAddress(ro,sync,no_subtree_check)" > /etc/exports
 
 exportfs -a
@@ -73,8 +72,8 @@ do
       echo "----------------"
 
       mkdir /var/pubkey${i##*.}
-      mount -t nfs $i:/mnt/pubkey${i##*.} /var/pubkey${i##*.}
-      cat /var/pubkey${i##*.} >> ~/.ssh/authorized_keys
+      mount -t nfs $i:/mnt/pubkey /var/pubkey${i##*.}
+      cat /var/pubkey${i##*.}/id_rsa.pub >> ~/.ssh/authorized_keys
    fi
 done
 echo "----------------"
