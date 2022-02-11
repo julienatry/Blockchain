@@ -1,7 +1,6 @@
 #!/bin/bash
 
 #Config
-sharedPubKey="/mnt/pubkey/"
 networkAddress="192.168.80.0/24"
 
 
@@ -18,7 +17,7 @@ fi
 nmap_output=$(nmap $1 -n -sP $networkAddress | grep report | awk '{print $5}')
 existing_exports=$(cat /etc/exports | grep /mnt/pubkey)
 rsa_file="~/.ssh/id_rsa"
-
+sharedPubKey="/mnt/pubkey/"
 
 
 #Verbose
