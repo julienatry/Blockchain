@@ -28,7 +28,10 @@ echo "----------------"
 
 
 #NFS share
-mkdir $sharedPubKey
+if [[ ! -d $sharedPubKey ]]; then
+   mkdir $sharedPubKey
+fi
+
 chmod 777 $sharedPubKey
 
 if [[ -z existing_exports ]]; then
