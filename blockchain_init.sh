@@ -31,7 +31,7 @@ echo "----------------"
 mkdir $sharedPubKey
 chmod 777 $sharedPubKey
 
-if [[ existing_exports -eq 0 ]]; then
+if [[ -z existing_exports ]]; then
    echo "/mnt/pubkey $networkAddress(ro,sync,no_subtree_check)" > /etc/exports
 fi
 

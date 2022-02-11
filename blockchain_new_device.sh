@@ -7,7 +7,8 @@ networkAddress="192.168.80.0/24"
 
 #Variables
 nmap_output=$(nmap $1 -n -sP $networkAddress | grep report | awk '{print $5}')
-pubkey_dir="/var/pubkey${i##*.}"
+known_hosts_exists=$(cat ~/.ssh/known_hosts | grep $ip | grep rsa)
+pubkey_dir="/var/pubkey${ip##*.}"
 
 
 
@@ -24,12 +25,12 @@ do
 
 	#DSH hosts list
 	echo "Live blockchain hosts :"
-	for i in $nmap_output
+	for ip in $nmap_output
 	do
-		if [ "${i##*.}" -gt "100" ] && [ "${i##*.}" -lt "200" ]
+		if [ "${ip##*.}" -gt "100" ] && [ "${ip##*.}" -lt "200" ]
 		then
-			echo "$i"
-			echo "$i" >> /etc/dsh/group/blockchain
+			echo "$ip"
+			echo "$ip" >> /etc/dsh/group/blockchain
 		fi
 	done
 	cat /etc/dsh/group/blockchain >> /etc/dsh/machines.list
@@ -38,22 +39,25 @@ do
 
 
 	#Public SSH keys retrieving
-	for i in $nmap_output
+	for ip in $nmap_output
 	do
-		if [ "${i##*.}" -gt "100" ] && [ "${i##*.}" -lt "200" ]
+		if [ "${ip##*.}" -gt "100" ] && [ "${ip##*.}" -lt "200" ]
 		then
 			echo "----------------"
-			echo "Working on $i"
+			echo "Working on $ip"
 			echo "----------------"
 
-			ssh-keyscan $i >> ~/.ssh/known_hosts
+			if [[ -z $known_hosts_exists ]]; then
+				ssh-keyscan $ip >> ~/.ssh/known_hosts
+			fi
+
 			echo "----------------"
 
 			if [ ! -d $pubkey_dir ]; then
 				mkdir $pubkey_dir
 			fi
 			
-			mount -t nfs $i:/mnt/pubkey $pubkey_dir
+			mount -t nfs $ip:/mnt/pubkey $pubkey_dir
 			cat $pubkey_dir/id_rsa.pub >> ~/.ssh/authorized_keys
 		fi
 	done
