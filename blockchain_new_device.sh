@@ -7,6 +7,7 @@ networkAddress="192.168.80.0/24"
 
 #Variables
 nmap_output=$(nmap $1 -n -sP $networkAddress | grep report | awk '{print $5}')
+my_ip=$(ifconfig | grep 192.168.80 | awk '{print $2}')
 known_hosts_exists=$(cat ~/.ssh/known_hosts | grep $ip | grep rsa)
 dsh_exists=$(cat $dsh_group | grep $ip)
 dsh_group="/etc/dsh/group/blockchain"
@@ -29,7 +30,7 @@ do
 	echo "Live blockchain hosts :"
 	for ip in $nmap_output
 	do
-		if [ "${ip##*.}" -gt "100" ] && [ "${ip##*.}" -lt "200" ]
+		if [ "${ip##*.}" -gt "100" ] && [ "${ip##*.}" -lt "200" ] && [ $ip -ne $my_ip ]
 		then
 			echo "$ip"
 			if [[ -z $dsh_exists ]]; then
@@ -60,7 +61,7 @@ do
 			if [ ! -d $pubkey_dir ]; then
 				mkdir $pubkey_dir
 			fi
-			
+
 			mount -t nfs $ip:/mnt/pubkey $pubkey_dir
 			cat $pubkey_dir/id_rsa.pub >> ~/.ssh/authorized_keys
 		fi
