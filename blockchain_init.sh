@@ -46,11 +46,10 @@ echo "----------------"
 
 
 #Creating SSH keys
-if [ -f $rsa_file ]; then
-   rm $rsa_file $rsa_file.pub
+if [ ! -f $rsa_file ]; then
+   ssh-keygen -f ~/.ssh/id_rsa -N "" -t rsa
 fi
 
-ssh-keygen -f ~/.ssh/id_rsa -N "" -t rsa
 
 cp $rsa_file.pub $sharedPubKey
 
