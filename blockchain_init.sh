@@ -31,6 +31,7 @@ echo "----------------"
 mkdir $sharedPubKey
 chmod 777 $sharedPubKey
 
+#The following line causes NFS errors
 echo "/mnt/pubkey $networkAddress(ro,sync,no_subtree_check)" > /etc/exports
 
 exportfs -a
