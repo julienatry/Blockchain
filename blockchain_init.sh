@@ -16,6 +16,7 @@ fi
 
 #Variables
 nmap_output=$(nmap $1 -n -sP $networkAddress | grep report | awk '{print $5}')
+existing_exports=$(cat /etc/exports | grep /mnt/pubkey)
 
 
 
@@ -30,7 +31,10 @@ echo "----------------"
 mkdir $sharedPubKey
 chmod 777 $sharedPubKey
 
-echo "/mnt/pubkey $networkAddress(ro,sync,no_subtree_check)" > /etc/exports
+if [[ existing_exports -eq 0 ]]; then
+   echo "/mnt/pubkey $networkAddress(ro,sync,no_subtree_check)" > /etc/exports
+fi
+
 
 exportfs -a
 systemctl restart nfs-kernel-server

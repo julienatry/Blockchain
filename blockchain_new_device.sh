@@ -7,6 +7,7 @@ networkAddress="192.168.80.0/24"
 
 #Variables
 nmap_output=$(nmap $1 -n -sP $networkAddress | grep report | awk '{print $5}')
+pubkey_dir="/var/pubkey${i##*.}"
 
 
 
@@ -48,9 +49,13 @@ do
 			ssh-keyscan $i >> ~/.ssh/known_hosts
 			echo "----------------"
 
-			mkdir /var/pubkey${i##*.}
-			mount -t nfs $i:/mnt/pubkey /var/pubkey${i##*.}
-			cat /var/pubkey${i##*.}/id_rsa.pub >> ~/.ssh/authorized_keys
+			if [ -d $pubkey_dir ]; then
+				#statements
+			fi
+			mkdir $pubkey_dir
+			
+			mount -t nfs $i:/mnt/pubkey $pubkey_dir
+			cat $pubkey_dir/id_rsa.pub >> ~/.ssh/authorized_keys
 		fi
 	done
 	sleep 10
