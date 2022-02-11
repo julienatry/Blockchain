@@ -65,6 +65,7 @@ for i in $nmap_output
 do
    if [ "${i##*.}" -gt "100" ] && [ "${i##*.}" -lt "200" ]
    then
+      echo "----------------"
       echo "Working on $i"
       echo "----------------"
 
