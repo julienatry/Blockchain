@@ -43,4 +43,4 @@ ssh-keygen -f ~/.ssh/id_rsa -N "" -t rsa
 cp ~/.ssh/id_rsa.pub $sharedPubKey
 
 
-bash ./blockchain_new_device.sh
+bash ./blockchain_new_device.sh &
