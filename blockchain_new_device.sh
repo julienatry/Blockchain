@@ -37,7 +37,7 @@ do
 			fi
 		fi
 	done
-	cat $dsh_group >> /etc/dsh/machines.list
+	cat $dsh_group > /etc/dsh/machines.list
 	echo "----------------"
 
 
