@@ -14,7 +14,6 @@ fi
 
 
 #Variables
-nmap_output=$(nmap $1 -n -sP $networkAddress | grep report | awk '{print $5}')
 existing_exports=$(cat /etc/exports | grep /mnt/pubkey)
 rsa_file=~/.ssh/id_rsa
 sharedPubKey="/mnt/pubkey/"
@@ -52,6 +51,12 @@ fi
 
 
 cp $rsa_file.pub $sharedPubKey
+
+
+
+#
+
+
 
 
 bash ./blockchain_new_device.sh &
