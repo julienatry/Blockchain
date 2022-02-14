@@ -64,6 +64,7 @@ do
 
 			mount -t nfs $ip:/mnt/pubkey $pubkey_dir
 			cat $pubkey_dir/id_rsa.pub >> ~/.ssh/authorized_keys
+			umount $pubkey_dir
 		fi
 	done
 	sleep 10
