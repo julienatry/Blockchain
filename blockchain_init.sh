@@ -18,7 +18,9 @@ existing_exports=$(cat /etc/exports | grep /mnt/pubkey)
 rsa_file=~/.ssh/id_rsa
 sharedPubKey="/mnt/pubkey/"
 ssh_config="/etc/ssh/sshd_config"
+dsh_config="/etc/dsh/dsh.conf"
 isSSHSecured=$(cat $ssh_config | grep "Secured for blockchain")
+isDSHConfigured=$(cat $dsh_config | grep "Configured for blockchain")
 
 
 #Verbose
@@ -56,7 +58,7 @@ cp $rsa_file.pub $sharedPubKey
 
 
 
-#
+#Configure SSH
 if [[ -z $isSSHSecured ]]; then
    sed -i 's/#PasswordAuthentication yes/PasswordAuthentication no/g' $ssh_config
    sed -i 's/PasswordAuthentication yes/PasswordAuthentication no/g' $ssh_config
@@ -70,6 +72,15 @@ if [[ -z $isSSHSecured ]]; then
    echo "#Secured for blockchain" >> $ssh_config
 
    systemctl reload ssh
+fi
+
+
+
+#
+if [[ -z $isDSHConfigured ]]; then
+   sed -i 's/remoteshell =rsh/remoteshell =ssh/g' $dsh_config
+
+   echo "#Configured for blockchain" $dsh_config
 fi
 
 
