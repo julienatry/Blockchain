@@ -12,7 +12,7 @@ On propose un sujet en 2 parties:
 ## 2eme partie: Cas d'application en Sécurité d'Administration
 
 - Concevoir, si possible à base de scripting "bash" et services déjà existant en OpenSource,
-- 
+
 => Un système d'authentification à Forte Sécurité distribué, sur un système de 5 machines distantes physiquement ou virtuelles (5 Systèmes OpenSource), sur un compte d'accès (un login) sensible
 où il faudrait un accord en distribué sur au moins 3 des 5 Systèmes distants sur le couple Login/mdp.
 On pourra s'inspirer des approches diverses suggérées par les BlockChain, sans toutefois déclencher une mise en œuvre d'une vraie BCK Privée ou publique d'ailleurs.
