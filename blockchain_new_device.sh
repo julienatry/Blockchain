@@ -35,7 +35,7 @@ dsh_update () {
 
 ssh_update () {
 	if [[ -z $known_hosts_exists ]]; then
-		sed '/$1/d' ~/.ssh/known_hosts
+		sed -i "/$1/d" ~/.ssh/known_hosts
 		sshKeyScan=$(ssh-keyscan -t rsa $1)
 
 		if [[ -z $ ]]; then
