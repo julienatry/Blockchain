@@ -37,13 +37,15 @@ dsh_update () {
 }
 
 ssh_update () {
-	sshKeyScan=$(ssh-keyscan -t rsa $1)
+	if [[ -z known_hosts_rsa ]]; then
+		sshKeyScan=$(ssh-keyscan -t rsa $1)
 
-	sed -i "/$1/d" ~/.ssh/known_hosts
+		sed -i "/$1/d" ~/.ssh/known_hosts
 
-	echo $sshKeyScan >> ~/.ssh/known_hosts
+		echo $sshKeyScan >> ~/.ssh/known_hosts
 
-	systemctl reload ssh
+		systemctl reload ssh
+	fi
 }
 
 
