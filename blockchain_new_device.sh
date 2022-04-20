@@ -57,11 +57,11 @@ do
 	do
 		if [ "${ip##*.}" -gt "100" ] && [ "${ip##*.}" -lt "200" ] && [ "$ip" != "$my_ip" ]
 		then
-			dsh_update $ip
-
 			echo "----------------"
 			echo "Working on $ip"
 			echo "----------------"
+
+			dsh_update $ip
 
 			ssh_update $ip
 
