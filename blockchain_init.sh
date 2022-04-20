@@ -39,7 +39,7 @@ fi
 
 chmod 777 $sharedPubKey
 
-if [[ -z existing_exports ]]; then
+if [[ ! -z existing_exports ]]; then
    echo "/mnt/pubkey $networkAddress(ro,sync,no_subtree_check)" > /etc/exports
 fi
 
