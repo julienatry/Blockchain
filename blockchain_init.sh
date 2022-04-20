@@ -1,8 +1,8 @@
 #!/bin/bash
 
+
 #Config
 networkAddress="192.168.80.0/24"
-
 
 
 #Verify root privileges
@@ -10,7 +10,6 @@ if [[ $EUID -ne 0 ]]; then
    echo "I must be opened with root privileges"
    exit 1
 fi
-
 
 
 #Variables
@@ -23,10 +22,13 @@ isSSHSecured=$(cat $ssh_config | grep "Secured for blockchain")
 isDSHConfigured=$(cat $dsh_config | grep "Configured for blockchain")
 
 
+
+
 #Verbose
 echo "Defined network address : $networkAddress"
 echo "Defined public key location : $sharedPubKey"
 echo "----------------"
+
 
 
 
@@ -48,6 +50,7 @@ echo "----------------"
 
 
 
+
 #Creating SSH keys
 if [ -f $rsa_file ]; then
    rm $rsa_file
@@ -56,6 +59,7 @@ fi
 ssh-keygen -f ~/.ssh/id_rsa -N "" -t rsa
 
 cp $rsa_file.pub $sharedPubKey
+
 
 
 
@@ -85,12 +89,14 @@ fi
 
 
 
+
 #Configure DSH
 if [[ -z $isDSHConfigured ]]; then
    sed -i 's/remoteshell =rsh/remoteshell =ssh/g' $dsh_config
 
    echo "#Configured for blockchain" >> $dsh_config
 fi
+
 
 
 
