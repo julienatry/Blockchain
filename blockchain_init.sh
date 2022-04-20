@@ -95,6 +95,8 @@ if [[ -z $isDSHConfigured ]]; then
    sed -i 's/remoteshell =rsh/remoteshell =ssh/g' $dsh_config
 
    echo "#Configured for blockchain" >> $dsh_config
+
+   echo "" > /etc/dsh/group/blockchain
 fi
 
 
