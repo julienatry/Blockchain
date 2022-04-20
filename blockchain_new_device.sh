@@ -38,7 +38,7 @@ ssh_update () {
 		sed -i "/$1/d" ~/.ssh/known_hosts
 		sshKeyScan=$(ssh-keyscan -t rsa $1)
 
-		if [[ -z $ ]]; then
+		if [[ -z $known_hosts_rsa ]]; then
 			#statements
 		fi
 		echo $sshKeyScan >> ~/.ssh/known_hosts
@@ -78,6 +78,6 @@ do
 			umount $pubkey_dir
 		fi
 	done
-	sleep 30
+	sleep 60
 done
 echo "----------------"
