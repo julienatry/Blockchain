@@ -49,17 +49,7 @@ do
 		then
 			echo "$ip"
 			dsh_update $ip
-		fi
-	done
-	echo "----------------"
-
-
-
-	#Public SSH keys retrieving
-	for ip in $nmap_output
-	do
-		if [ "${ip##*.}" -gt "100" ] && [ "${ip##*.}" -lt "200" ] && [ "$ip" != "$my_ip" ]
-		then
+			
 			echo "----------------"
 			echo "Working on $ip"
 			echo "----------------"
