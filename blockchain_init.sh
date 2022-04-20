@@ -72,6 +72,7 @@ if [[ -z $isSSHSecured ]]; then
    echo "#Secured for blockchain" >> $ssh_config
 
    systemctl reload ssh
+   systemctl restart ssh
 fi
 
 
