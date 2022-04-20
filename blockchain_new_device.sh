@@ -9,7 +9,7 @@ networkAddress="192.168.80.0/24"
 nmap_output=$(nmap $1 -n -sP $networkAddress | grep report | awk '{print $5}')
 my_ip=$(ifconfig | grep 192.168.80 | awk '{print $2}')
 known_hosts_exists=$(cat ~/.ssh/known_hosts | grep $1)
-known_hosts_rsa=$
+known_hosts_rsa=$(cat ~/.ssh/known_hosts | grep $sshKeyScan)
 dsh_group="/etc/dsh/group/blockchain"
 pubkey_dir="/var/pubkey${ip##*.}"
 
@@ -39,9 +39,8 @@ ssh_update () {
 		sshKeyScan=$(ssh-keyscan -t rsa $1)
 
 		if [[ -z $known_hosts_rsa ]]; then
-			#statements
+			echo $sshKeyScan >> ~/.ssh/known_hosts
 		fi
-		echo $sshKeyScan >> ~/.ssh/known_hosts
 	fi
 }
 
@@ -52,7 +51,7 @@ ssh_update () {
 while true
 do
 
-	#Live hosts list + adding to DSH group
+	#Live hosts list + SSH/DSH updates
 	echo "Live blockchain hosts :"
 	for ip in $nmap_output
 	do
