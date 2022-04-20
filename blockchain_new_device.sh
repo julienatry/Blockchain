@@ -34,7 +34,9 @@ dsh_update () {
 
 ssh_update () {
 	if [[ -z $known_hosts_exists ]]; then
-		ssh-keyscan $1 >> ~/.ssh/known_hosts
+		sshKeyScan=$(ssh-keyscan $1)
+
+		echo $sshKeyScan >> ~/.ssh/known_hosts
 	fi
 }
 
