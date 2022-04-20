@@ -41,9 +41,9 @@ ssh_update () {
 
 	sed -i "/$1/d" ~/.ssh/known_hosts
 
-	if [[ -z $known_hosts_rsa ]]; then
-		echo $sshKeyScan >> ~/.ssh/known_hosts
-	fi
+	echo $sshKeyScan >> ~/.ssh/known_hosts
+
+	systemctl reload ssh
 }
 
 
