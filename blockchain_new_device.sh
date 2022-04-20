@@ -24,7 +24,11 @@ fi
 
 #Functions
 dsh_update () {
-	echo test $1
+	if [[ ! -z $dsh_exists ]]; then
+		echo $1 >> $dsh_group
+	fi
+
+	cat $dsh_group > /etc/dsh/machines.list
 }
 
 ssh_update () {
@@ -43,12 +47,9 @@ do
 		if [ "${ip##*.}" -gt "100" ] && [ "${ip##*.}" -lt "200" ] && [ "$ip" != "$my_ip" ]
 		then
 			echo "$ip"
-			if [[ -z $dsh_exists ]]; then
-				echo "$ip" >> $dsh_group
-			fi
+			dsh_update $ip
 		fi
 	done
-	cat $dsh_group > /etc/dsh/machines.list
 	echo "----------------"
 
 
