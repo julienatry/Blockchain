@@ -8,7 +8,7 @@ networkAddress="192.168.80.0/24"
 #Variables
 nmap_output=$(nmap $1 -n -sP $networkAddress | grep report | awk '{print $5}')
 my_ip=$(ifconfig | grep 192.168.80 | awk '{print $2}')
-known_hosts_exists=$(cat ~/.ssh/known_hosts | grep $ip | grep rsa)
+known_hosts_exists=$(cat ~/.ssh/known_hosts | grep $1)
 dsh_group="/etc/dsh/group/blockchain"
 pubkey_dir="/var/pubkey${ip##*.}"
 
