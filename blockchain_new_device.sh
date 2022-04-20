@@ -29,7 +29,7 @@ fi
 dsh_update () {
 	dsh_exists=$(cat $dsh_group | grep $1)
 
-	if [[ ! -z $dsh_exists ]]; then
+	if [[ -z $dsh_exists ]]; then
 		echo $1 >> $dsh_group
 	fi
 
@@ -38,7 +38,7 @@ dsh_update () {
 
 ssh_update () {
 	sshKeyScan=$(ssh-keyscan -t rsa $1)
-	
+
 	sed -i "/$1/d" ~/.ssh/known_hosts
 
 	if [[ -z $known_hosts_rsa ]]; then
