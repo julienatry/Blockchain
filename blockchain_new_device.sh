@@ -26,7 +26,7 @@ fi
 while true
 do
 
-	#DSH hosts list
+	#Live hosts list + adding to DSH group
 	echo "Live blockchain hosts :"
 	for ip in $nmap_output
 	do
@@ -67,6 +67,6 @@ do
 			umount $pubkey_dir
 		fi
 	done
-	sleep 10
+	sleep 30
 done
 echo "----------------"
