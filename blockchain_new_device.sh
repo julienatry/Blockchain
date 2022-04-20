@@ -22,6 +22,16 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 
+#Functions
+dsh_update () {
+	echo test $1
+}
+
+ssh_update () {
+	echo test $1
+}
+
+
 #Infinite loop
 while true
 do
