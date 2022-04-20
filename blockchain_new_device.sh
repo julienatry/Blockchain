@@ -33,7 +33,9 @@ dsh_update () {
 }
 
 ssh_update () {
-	echo test $1
+	if [[ -z $known_hosts_exists ]]; then
+		ssh-keyscan $1 >> ~/.ssh/known_hosts
+	fi
 }
 
 
@@ -49,14 +51,12 @@ do
 		then
 			echo "$ip"
 			dsh_update $ip
-			
 			echo "----------------"
+
 			echo "Working on $ip"
 			echo "----------------"
 
-			if [[ -z $known_hosts_exists ]]; then
-				ssh-keyscan $ip >> ~/.ssh/known_hosts
-			fi
+			ssh_update $ip
 
 			echo "----------------"
 
