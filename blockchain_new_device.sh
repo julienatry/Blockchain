@@ -34,11 +34,13 @@ dsh_update () {
 
 ssh_update () {
 	if [[ -z $known_hosts_exists ]]; then
-		sshKeyScan=$(ssh-keyscan $1)
+		sshKeyScan=$(ssh-keyscan -t rsa $1)
 
 		echo $sshKeyScan >> ~/.ssh/known_hosts
 	fi
 }
+
+
 
 
 #Infinite loop
