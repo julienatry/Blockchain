@@ -57,16 +57,14 @@ do
 	do
 		if [ "${ip##*.}" -gt "100" ] && [ "${ip##*.}" -lt "200" ] && [ "$ip" != "$my_ip" ]
 		then
-			echo "$ip"
 			dsh_update $ip
-			echo "----------------"
 
+			echo "----------------"
 			echo "Working on $ip"
 			echo "----------------"
 
 			ssh_update $ip
 
-			echo "----------------"
 
 			if [ ! -d $pubkey_dir ]; then
 				mkdir $pubkey_dir
