@@ -65,6 +65,7 @@ do
 
 			ssh_update $ip
 
+
 			#Remote pubkey retrieving via NFS
 			if [ ! -d $pubkey_dir ]; then
 				mkdir $pubkey_dir
@@ -77,4 +78,3 @@ do
 	done
 	sleep 60
 done
-echo "----------------"
