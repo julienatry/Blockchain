@@ -52,9 +52,9 @@ ssh_update () {
 			;;
 
 		authorized_keys )
-			mount -t nfs $ip:/mnt/pubkey $pubkey_dir
-			cat $pubkey_dir/id_rsa.pub >> ~/.ssh/authorized_keys
-			umount $pubkey_dir
+			mount -t nfs $2:/mnt/pubkey $3
+			cat $3/id_rsa.pub >> ~/.ssh/authorized_keys
+			umount $3
 			;;
 
 		reload )
@@ -91,7 +91,7 @@ do
 				mkdir $pubkey_dir
 			fi
 
-			ssh_update authorized_keys
+			ssh_update authorized_keys $ip $pubkey_dir
 			ssh_update reload
 		fi
 	done
