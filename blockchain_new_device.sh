@@ -12,7 +12,6 @@ known_hosts_exists=$(cat ~/.ssh/known_hosts | grep $2)
 known_hosts_rsa=$(cat ~/.ssh/known_hosts | grep $sshKeyScan)
 authorized_keys_exists=$(cat ~/.ssh/authorized_keys | grep $remotePubKey)
 dsh_group="/etc/dsh/group/blockchain"
-pubkey_dir="/var/pubkey${ip##*.}"
 
 
 
@@ -52,15 +51,17 @@ ssh_update () {
 			;;
 
 		authorized_keys )
-			local remotePubKey=$(cat $3/id_rsa.pub)
+			local pubkey_dir="/var/pubkey${2##*.}"
 
-			mount -t nfs $2:/mnt/pubkey $3
-
-			if [[ ! -z authorized_keys_exists ]]; then
-				echo $remotePubKey >> ~/.ssh/authorized_keys
+			if [[ ! -d $pubkey_dir ]]; then
+				mkdir $pubkey_dir
 			fi
 
-			umount $3
+			mount -t nfs $2:/mnt/pubkey $pubkey_dir
+
+			cat $pubkey_dir/id_rsa.pub >> ~/.ssh/authorized_keys
+
+			umount $pubkey_dir
 			;;
 
 		reload )
@@ -92,11 +93,8 @@ do
 
 
 			#Remote pubkey retrieving via NFS
-			if [ ! -d $pubkey_dir ]; then
-				mkdir $pubkey_dir
-			fi
 
-			ssh_update authorized_keys $ip $pubkey_dir
+			ssh_update authorized_keys $ip
 			ssh_update reload
 		fi
 	done
