@@ -38,11 +38,14 @@ dsh_update () {
 }
 
 ssh_update () {
+	if [[ $1 == "" ]]; then
+		#statements
+	fi
 	if [[ ! -z known_hosts_exists ]]; then
-		sshKeyScan=$(ssh-keyscan -t rsa $1)
+		local sshKeyScan=$(ssh-keyscan -t rsa $2)
 
 		if [[ ! -z known_hosts_rsa ]]; then
-			sed -i "/$1/d" ~/.ssh/known_hosts
+			sed -i "/$2/d" ~/.ssh/known_hosts
 		fi
 
 		echo $sshKeyScan >> ~/.ssh/known_hosts
@@ -69,7 +72,7 @@ do
 
 			dsh_update $ip
 
-			ssh_update $ip
+			ssh_update known_hosts $ip
 
 
 			#Remote pubkey retrieving via NFS
@@ -78,6 +81,7 @@ do
 			fi
 
 			mount -t nfs $ip:/mnt/pubkey $pubkey_dir
+			ssh_update authorized_keys
 			cat $pubkey_dir/id_rsa.pub >> ~/.ssh/authorized_keys
 			umount $pubkey_dir
 		fi
