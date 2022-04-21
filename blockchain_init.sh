@@ -67,11 +67,9 @@ cp $rsa_file.pub $sharedPubKey
 if [[ -z $isSSHSecured ]]; then
    sed -i 's/#PasswordAuthentication yes/PasswordAuthentication no/g' $ssh_config
    sed -i 's/PasswordAuthentication yes/PasswordAuthentication no/g' $ssh_config
-   sed -i 's/#PasswordAuthentication no/PasswordAuthentication no/g' $ssh_config
 
    sed -i 's/#ChallengeResponseAuthentication yes/ChallengeResponseAuthentication no/g' $ssh_config
    sed -i 's/ChallengeResponseAuthentication yes/ChallengeResponseAuthentication no/g' $ssh_config
-   sed -i 's/#ChallengeResponseAuthentication no/ChallengeResponseAuthentication no/g' $ssh_config
 
    sed -i 's/#UsePAM yes/UsePAM no/g' $ssh_config
    sed -i 's/UsePAM yes/UsePAM no/g' $ssh_config
