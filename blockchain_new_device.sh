@@ -58,7 +58,9 @@ ssh_update () {
 
 			mount -t nfs $2:/mnt/pubkey $pubkey_dir
 
-			cat $pubkey_dir/id_rsa.pub >> ~/.ssh/authorized_keys
+			remotePubKey=$(cat $pubkey_dir/id_rsa.pub)
+
+			echo $remotePubKey >> ~/.ssh/authorized_keys
 
 			umount $pubkey_dir
 			;;
