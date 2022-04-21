@@ -77,10 +77,6 @@ if [[ -z $isSSHSecured ]]; then
    sed -i 's/UsePAM yes/UsePAM no/g' $ssh_config
    sed -i 's/#UsePAM no/UsePAM no/g' $ssh_config
 
-   sed -i 's/#PubkeyAuthentication yes/PubkeyAuthentication yes/g' $ssh_config
-   sed -i 's/#PubkeyAuthentication no/PubkeyAuthentication yes/g' $ssh_config
-   sed -i 's/PubkeyAuthentication no/PubkeyAuthentication yes/g' $ssh_config
-
    echo "#Secured for blockchain" >> $ssh_config
    echo "" > ~/.ssh/known_hosts
    echo "" > ~/.ssh/authorized_keys
