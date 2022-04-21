@@ -66,7 +66,6 @@ ssh_update () {
 		reload )
 			systemctl reload ssh
 			systemctl restart ssh
-			systemctl restart sshd
 			;;
 	esac
 }
