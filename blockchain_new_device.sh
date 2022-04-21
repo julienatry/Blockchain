@@ -38,20 +38,29 @@ dsh_update () {
 }
 
 ssh_update () {
-	if [[ $1 == "" ]]; then
-		#statements
-	fi
-	if [[ ! -z known_hosts_exists ]]; then
-		local sshKeyScan=$(ssh-keyscan -t rsa $2)
+	case $1 in
+		known_hosts )
+			if [[ ! -z known_hosts_exists ]]; then
+				local sshKeyScan=$(ssh-keyscan -t rsa $2)
 
-		if [[ ! -z known_hosts_rsa ]]; then
-			sed -i "/$2/d" ~/.ssh/known_hosts
-		fi
+				if [[ ! -z known_hosts_rsa ]]; then
+					sed -i "/$2/d" ~/.ssh/known_hosts
+				fi
 
-		echo $sshKeyScan >> ~/.ssh/known_hosts
+				echo $sshKeyScan >> ~/.ssh/known_hosts
+			fi
+			;;
 
-		systemctl reload ssh
-	fi
+		authorized_keys )
+			cat $pubkey_dir/id_rsa.pub >> ~/.ssh/authorized_keys
+			;;
+
+		reload )
+			systemctl reload ssh
+			systemctl restart ssh
+			systemctl restart sshd
+			;;
+	esac
 }
 
 
@@ -82,7 +91,7 @@ do
 
 			mount -t nfs $ip:/mnt/pubkey $pubkey_dir
 			ssh_update authorized_keys
-			cat $pubkey_dir/id_rsa.pub >> ~/.ssh/authorized_keys
+			ssh_update reload
 			umount $pubkey_dir
 		fi
 	done
