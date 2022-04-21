@@ -10,8 +10,6 @@ nmap_output=$(nmap $1 -n -sP $networkAddress | grep report | awk '{print $5}')
 my_ip=$(ifconfig | grep 192.168.80 | awk '{print $2}')
 known_hosts_exists=$(cat ~/.ssh/known_hosts | grep $2)
 known_hosts_rsa=$(cat ~/.ssh/known_hosts | grep $sshKeyScan)
-remotePubKey=$(cat $pubkey_dir/id_rsa.pub)
-authorized_keys_exists=$(cat ~/.ssh/authorized_keys | grep $remotePubKey)
 dsh_group="/etc/dsh/group/blockchain"
 
 
@@ -60,9 +58,7 @@ ssh_update () {
 
 			mount -t nfs $2:/mnt/pubkey $pubkey_dir
 
-			if [[ ! -z authorized_keys_exists ]]; then
-				cat $remotePubKey >> ~/.ssh/authorized_keys
-			fi
+			cat $pubkey_dir/id_rsa.pub >> ~/.ssh/authorized_keys
 
 			umount $pubkey_dir
 			;;
