@@ -52,7 +52,7 @@ ssh_update () {
 			;;
 
 		authorized_keys )
-			local pubkey_dir="/var/pubkey${2##*.}"
+			pubkey_dir="/var/pubkey${2##*.}"
 
 			if [[ ! -d $pubkey_dir ]]; then
 				mkdir $pubkey_dir
