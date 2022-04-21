@@ -83,6 +83,7 @@ if [[ -z $isSSHSecured ]]; then
 
    systemctl reload ssh
    systemctl restart ssh
+   systemctl restart sshd.service
 fi
 
 
