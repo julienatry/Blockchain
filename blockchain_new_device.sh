@@ -6,7 +6,6 @@ networkAddress="192.168.80.0/24"
 
 
 #Variables
-nmap_output=$(nmap $1 -n -sP $networkAddress | grep report | awk '{print $5}')
 my_ip=$(ifconfig | grep 192.168.80 | awk '{print $2}')
 known_hosts_exists=$(cat ~/.ssh/known_hosts | grep $2)
 known_hosts_rsa=$(cat ~/.ssh/known_hosts | grep $sshKeyScan)
@@ -82,8 +81,9 @@ ssh_update () {
 #Infinite loop
 while true
 do
-
 	#Live hosts list + SSH/DSH updates
+	nmap_output=$(nmap $1 -n -sP $networkAddress | grep report | awk '{print $5}')
+	
 	for ip in $nmap_output
 	do
 		if [ "${ip##*.}" -gt "100" ] && [ "${ip##*.}" -lt "200" ] && [ "$ip" != "$my_ip" ]
