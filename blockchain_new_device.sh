@@ -64,7 +64,7 @@ ssh_update () {
 			response_length=${#authorized_keys_exists}
 
 			if [[ response_length -gt 10 ]]; then
-				sed -i "/$var/d" ~/.ssh/authorized_keys
+				sed -i "/$current_pc/d" ~/.ssh/authorized_keys
 			fi
 
 			echo $remote_pubkey >> ~/.ssh/authorized_keys
