@@ -1,7 +1,7 @@
 #!/bin/bash
 
 username="root"
-required_fract=75.00
+required_fract=75
 
 
 user_search=$(cat /etc/shadow | grep $username)
@@ -29,8 +29,9 @@ echo "Valid : $valid"
 echo "Invalid : $invalid"
 
 fract=$(echo "scale=2; $valid/$i*100" | bc -l)
+fract_corr=$(echo "${fract%.*}")
 
-if [[ fract -gt required_fract ]]; then
+if [[ fract_corr -gt required_fract ]]; then
 	echo "Autorisé"
 else
 	echo "Non autorisé"
