@@ -60,10 +60,10 @@ ssh_update () {
 
 			remote_pubkey=$(<$pubkey_dir/id_rsa.pub)
 			current_pc=${remote_pubkey##*@}
-			authorized_keys_exists=$(cat ~/.ssh/authorized_keys | grep "$current_pc")
+			authorized_keys_exists=$(cat ~/.ssh/authorized_keys | grep $current_pc)
 			response_length=${#authorized_keys_exists}
 
-			if [[ response_length -gt 10 ]]; then
+			if [[ response_length -gt 1 ]]; then
 				sed -i "/$current_pc/d" ~/.ssh/authorized_keys
 			fi
 
