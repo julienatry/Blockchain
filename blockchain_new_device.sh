@@ -27,7 +27,7 @@ fi
 dsh_update () {
 	dsh_exists=$(cat $dsh_group | grep $1)
 
-	if [[ ! -z $dsh_exists ]]; then
+	if [[ -z $dsh_exists ]]; then
 		echo $1 >> $dsh_group
 	fi
 
