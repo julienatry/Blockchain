@@ -72,8 +72,6 @@ if [[ -z $isSSHSecured ]]; then
    sed -i 's/ChallengeResponseAuthentication yes/ChallengeResponseAuthentication no/g' $ssh_config
 
    echo "#Secured for blockchain" >> $ssh_config
-   echo "" > ~/.ssh/known_hosts
-   echo "" > ~/.ssh/authorized_keys
 
    systemctl reload ssh
    systemctl restart ssh
@@ -88,9 +86,15 @@ if [[ -z $isDSHConfigured ]]; then
    sed -i 's/remoteshell =rsh/remoteshell =ssh/g' $dsh_config
 
    echo "#Configured for blockchain" >> $dsh_config
-
-   echo "" > /etc/dsh/group/blockchain
 fi
+
+
+
+
+#Files init/reset
+echo "" > ~/.ssh/known_hosts
+echo "" > ~/.ssh/authorized_keys
+echo "" > /etc/dsh/group/blockchain
 
 
 
