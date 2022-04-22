@@ -55,15 +55,19 @@ ssh_update () {
 				mkdir $pubkey_dir
 			fi
 
+
 			mount -t nfs $2:/mnt/pubkey $pubkey_dir
 
-			remotePubKey=$(<$pubkey_dir/id_rsa.pub)
-			authorized_keys_exists=$(cat ~/.ssh/authorized_keys | grep "$remotePubKey")
+			remote_pubkey=$(<$pubkey_dir/id_rsa.pub)
+			current_pc=${remote_pubkey##*@}
+			authorized_keys_exists=$(cat ~/.ssh/authorized_keys | grep "$current_pc")
 			response_length=${#authorized_keys_exists}
 
-			if [[ response_length -lt 10 ]]; then
-				echo $remotePubKey >> ~/.ssh/authorized_keys
+			if [[ response_length -gt 10 ]]; then
+				sed -i "/$var/d" ~/.ssh/authorized_keys
 			fi
+
+			echo $remote_pubkey >> ~/.ssh/authorized_keys
 
 			umount $pubkey_dir
 			;;
@@ -83,7 +87,7 @@ while true
 do
 	#Live hosts list + SSH/DSH updates
 	nmap_output=$(nmap $1 -n -sP $networkAddress | grep report | awk '{print $5}')
-	
+
 	for ip in $nmap_output
 	do
 		if [ "${ip##*.}" -gt "100" ] && [ "${ip##*.}" -lt "200" ] && [ "$ip" != "$my_ip" ]
