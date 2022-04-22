@@ -58,9 +58,13 @@ ssh_update () {
 
 			mount -t nfs $2:/mnt/pubkey $pubkey_dir
 
-			remotePubKey=$(cat $pubkey_dir/id_rsa.pub)
+			remotePubKey=$(<$pubkey_dir/id_rsa.pub)
+			authorized_keys_exists=$(cat ~/.ssh/authorized_keys | grep "$remotePubKey")
+			response_length=${#authorized_keys_exists}
 
-			echo $remotePubKey >> ~/.ssh/authorized_keys
+			if [[ response_length -lt 10 ]]; then
+				echo $remotePubKey >> ~/.ssh/authorized_keys
+			fi
 
 			umount $pubkey_dir
 			;;
