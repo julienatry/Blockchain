@@ -2,7 +2,7 @@
 
 ## Concept
 
-Un système distribué est un ensemble de machines physiques connectées qui réalisent une tâche commune.
+Un système distribué est un ensemble de machines physiques connectées qui réalisent une tâche commune ou offrent un service. Ses machines communiquent par passage de messages.
 La nature des tâches effectuées ne définit pas le système, c'est une notion physique. 
 Ce concept est opposé au système centralisé, composé d'une machine physique unique. 
 
@@ -31,10 +31,12 @@ Voici plusieurs exemples d’applications actuelles du système distribué:
  - Internet
  - Blockchain
  - Jeux multi-joueurs
+ - e-mails
  - Torrents
  - Systèmes de calcul scientifique
  - Systèmes décentralisés
 
 ## Sources
 
-[Splunk](https://www.splunk.com/en_us/data-insider/what-are-distributed-systems.html#:~:text=A%20distributed%20system%20is%20a,been%20responsible%20for%20the%20task.)
+ - [Splunk](https://www.splunk.com/en_us/data-insider/what-are-distributed-systems.html#:~:text=A%20distributed%20system%20is%20a,been%20responsible%20for%20the%20task.)
+ - [Wikipedia](https://en.wikipedia.org/wiki/Distributed_computing)
