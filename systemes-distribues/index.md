@@ -3,26 +3,55 @@
 ## Concept
 
 Un système distribué est un ensemble de machines physiques connectées qui réalisent une tâche commune ou offrent un service. Ses machines communiquent par passage de messages.
-La nature des tâches effectuées ne définit pas le système, c'est une notion physique. 
+Par abus de langage, on qualifie parfois de système distribué un système multiprocesseur qui partage une mémoire commune. 
 Ce concept est opposé au système centralisé, composé d'une machine physique unique. 
 
 ### Avantages
 
-Les systèmes distribués peuvent avoir des avantages par rapport à leur homologues centralisés, mais ses avantages sont souvent potentiels et non innés. En effet, le potentiel d'un système distribué dépend de son architecture, de sa gestion et des ressources qui lui sont allouées. 
-Les avantages principaux sont les suivants:
+Les systèmes distribués peuvent avoir des avantages par rapport à leur homologues centralisés, mais ses avantages sont souvent potentiels et non innés. En effet, le potentiel d'un système distribué dépend de son architecture, de sa gestion et des ressources qui lui sont allouées. Par exemple, un calcul ne sera pas forcément achevé plus rapidement s’il est partagé entre plusieurs machines. 
 
- - Redondance: Puisque le système est constitué de plusieurs machines physiques, il peut être plus tolérant aux pannes et avoir une qualité de service plus élevée. Ceci permet aussi d'avoir une redondance de l'information plus fiable que sur un système à machine unique. 
- - Evolutivité: La répartition sur plusieurs nœuds permet la réalisation d'opérations de maintenance et d'évolution matérielle et logicielle sans arrêt de service, les nœuds opérationnels se répartissant les tâches. Un bon management des nœuds peut aussi permettre le plug-and-play.
- - Vitesse: la répartition d’une tâche sur plusieurs machines peut accélérer son exécution, bien que ce fait soit soumis à beaucoup de facteurs physiques et logiques. 
- - Transparence: pour un client, le système apparaît comme une entité logique unique, garantissant la facilité d’utilisation
+#### Redondance
+
+Un système distribué étant par définition réparti sur plusieurs machines, il peut bénéficier des avantages de la redondance. 
+ - Tolérance aux pannes: si le système est bien configuré, ses nœuds sont en capacité de fonctionner indépendamment les uns des autres. Ceci aide grandement à la tolérance de pannes matérielles.
+ - Qualité de service: Puisque le système est plus tolérant aux pannes, il peut être optimisé pour garantir une qualité de service plus élevée en répartissant la charge de travail sur les nœuds opérationnels. 
+
+#### Evolutivité
+
+Un système distribué bien configuré permet à ses nœuds de travailler indépendamment. En plus de permettre des opérations de maintenance sans diminution de la qualité de service (comme vu précédemment), ceci fournit un environnement propice au plug-and-play. 
+
+Les nœuds communiquant par messages, les machines individuelles peuvent fonctionner avec des versions logicielles ou de systèmes d'exploitation différents. Ceci permet de faire évoluer le parc matériel plus facilement sans problèmes de compatibilité. 
+
+#### Vitesse
+
+Si l’objectif du système est le calcul ou un service dépendant de la position géographique des noeuds, le système distribué arbore des avantages:
+
+ - La répartition de la tâche de calcul sur plusieurs machines permet d’utiliser plus de ressources (processeur, mémoire, stockage). Si la communication et la répartition de la charge sont bien configurées, ceci permet d’obtenir les résultats plus rapidement que sur un système centralisé. 
+ - Les tâches ou services qui dépendent de facteurs géographiques sont évidemment réalisés sur des systèmes distribués qui exploitent leur fonctionnement en réseau pour s’adapter aux contraintes. 
+
+#### Transparence
+
+Pour les utilisateurs, le système distribué apparaît comme une seule entité logique avec une interface unique. Ceci permet de faciliter leur utilisation et ne pas exposer les utilisateurs à leur complexité interne. 
 
 ### Inconvénients
 
-Tout comme les avantages, les inconvénients dépendent de beaucoup de la gestion du système ainsi que de facteurs externes. Celà dit, les inconvénients suivants sont probables:
+Tout comme les avantages, les inconvénients dépendent beaucoup de la gestion du système ainsi que de facteurs externes.
 
- - Complexité: bien que la redondance augmente la tolérance aux pannes, elle crée aussi de la complexité qui est elle-même source de pannes. En effet, l’exploitation de plus de machines crée plus d'occurrences de pannes matérielles. Puisque les systèmes distribués fonctionnent en réseaux, ils sont aussi sujets aux contraintes de ces derniers, surtout s' ils sont exploités sur un réseau public. Cette complexité se traduit aussi par des difficultés d’entretien et de management.
- - Risques de sécurité: La taille et la complexité des systèmes distribués augmentent la quantité de vecteurs d’attaque et rendent le monitoring plus compliqué. 
- - Synchronisation: les systèmes distribués ne partagent pas d’horloge commune entre les nœuds comme c’est le cas pour les systèmes centralisés. Les tâches nécessitant une synchronisation nécessitent donc une implémentation plus complexe. 
+#### Complexité
+
+L’augmentation de machines physiques est une évolution à double tranchant. En effet, la division en plusieurs noeuds comporte les inconvénients suivants:
+
+ - Augmentation des ressources nécessaires au bon fonctionnement: que ce soit d’un point de vue matériel, énergétique ou humain, un système plus complexe nécessite plus de ressources, ce qui augmente fatalement le coût d’exploitation. Ce point est en partie contrecarré par l’utilisation de clouds, offres qui diminuent le prix d’exploitation en faisant de l’exploitation de masse. 
+ - Dépendance du réseau: dans le cas d’un système étendu géographiquement, la dépendance de réseaux publics ou gérés par des prestataires externes crée des dangers supplémentaires: la diminution ou à perte des performances du réseau nuisent gravement au fonctionnement du réseau et ne peuvent pas être contrôlés par la politique QoS du système. 
+ - Difficulté d’exploitation: la complexité élevée par rapport aux homologues centralisés induit une demande de collaborateurs formés pour ce genre d’exploitation, ainsi que des moyens de gestion spécifiques plus poussés. 
+
+#### Sécurité
+
+Il est connu que la complexité induit des risques de sécurité dans tous les domaines. L'informatique n’en est pas exempte et en est même une bonne image. Plus concrètement, les systèmes distribués sont plus ouverts aux réseaux, sont répartis sur des sites distants physiquement et sont plus compliqués à monitorer en raison de leur complexité. Chacun de ses points représente un vecteur d’attaque supplémentaire qui se base sur les failles, les erreurs humaines sur place ainsi que des limites des ressources allouées à l'exploitation. 
+
+#### Synchronisation
+
+Beaucoup de processus sont basés sur le temps, et ne peuvent s’exécuter convenablement qu’en étant synchronisés. Les systèmes distribués souffrent ici d’un grand défaut: distants physiquement, les nœuds ne partagent pas d’horloge commune. Ceci pose donc de grands enjeux au niveau des plus petites échelles de mesure du temps.
 
 ## Applications
 
@@ -40,3 +69,5 @@ Voici plusieurs exemples d’applications actuelles du système distribué:
 
  - [Splunk](https://www.splunk.com/en_us/data-insider/what-are-distributed-systems.html#:~:text=A%20distributed%20system%20is%20a,been%20responsible%20for%20the%20task.)
  - [Wikipedia](https://en.wikipedia.org/wiki/Distributed_computing)
+
+
