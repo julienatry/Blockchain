@@ -31,7 +31,7 @@ fi
 chmod 777 $sharedPubKey
 # Make an export if none exist
 if [[ ! -z existing_exports ]]; then
-   echo "/mnt/pubkey $networkAddress(ro,sync,no_subtree_check)" > /etc/exports
+   echo "/mnt/pubkey $networkAddress(ro,sync,no_subtree_check)" >/etc/exports
 fi
 # Activate sharing
 exportfs -a
@@ -44,7 +44,7 @@ echo "----------------"
 if [ -f $rsa_file ]; then
    rm $rsa_file
 fi
-# Generate a new pair 
+# Generate a new pair
 ssh-keygen -f ~/.ssh/id_rsa -N "" -t rsa
 # Copy the oublic key to the shared folder
 cp $rsa_file.pub $sharedPubKey
@@ -52,14 +52,14 @@ cp $rsa_file.pub $sharedPubKey
 ### SSH configuration
 # if SSH is not secured
 if [[ -z $isSSHSecured ]]; then
-# Set PasswordAuthentication to no and uncomment it in the ssh configuration
+   # Set PasswordAuthentication to no and uncomment it in the ssh configuration
    sed -i 's/#PasswordAuthentication yes/PasswordAuthentication no/g' $ssh_config
    sed -i 's/PasswordAuthentication yes/PasswordAuthentication no/g' $ssh_config
-# Set ChallengeResponseAuthentication to no and uncomment it in the ssh confifguration
+   # Set ChallengeResponseAuthentication to no and uncomment it in the ssh confifguration
    sed -i 's/#ChallengeResponseAuthentication yes/ChallengeResponseAuthentication no/g' $ssh_config
    sed -i 's/ChallengeResponseAuthentication yes/ChallengeResponseAuthentication no/g' $ssh_config
-# Append ssh config file with #Secured for blockchain
-   echo "#Secured for blockchain" >> $ssh_config
+   # Append ssh config file with #Secured for blockchain
+   echo "#Secured for blockchain" >>$ssh_config
 
    systemctl reload ssh
    systemctl restart ssh
@@ -69,16 +69,16 @@ fi
 ### DSH configuration
 # If DSH is not configured
 if [[ -z $isDSHConfigured ]]; then
-# Set remoteshell to ssh
+   # Set remoteshell to ssh
    sed -i 's/remoteshell =rsh/remoteshell =ssh/g' $dsh_config
-# Append dsh config file with #Configured for blockchain
-   echo "#Configured for blockchain" >> $dsh_config
+   # Append dsh config file with #Configured for blockchain
+   echo "#Configured for blockchain" >>$dsh_config
 fi
 
 ### Files init/reset
-echo "" > ~/.ssh/known_hosts
-echo "" > ~/.ssh/authorized_keys
-echo "" > /etc/dsh/group/blockchain
+echo "" >~/.ssh/known_hosts
+echo "" >~/.ssh/authorized_keys
+echo "" >/etc/dsh/group/blockchain
 
 ### Run blockchain_new_device.sh
 bash ./blockchain_new_device.sh &
