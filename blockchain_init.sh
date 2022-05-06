@@ -27,7 +27,7 @@ echo "----------------"
 if [[ ! -d $sharedPubKey ]]; then
    mkdir $sharedPubKey
 fi
-# Grant every right for everyone to the folder (can't do otherwise?)
+# Grant every right for everyone to the folder (to redo in read-only)
 chmod 777 $sharedPubKey
 # Make an export if none exist
 if [[ ! -z existing_exports ]]; then
@@ -58,7 +58,7 @@ if [[ -z $isSSHSecured ]]; then
    # Set ChallengeResponseAuthentication to no and uncomment it in the ssh confifguration
    sed -i 's/#ChallengeResponseAuthentication yes/ChallengeResponseAuthentication no/g' $ssh_config
    sed -i 's/ChallengeResponseAuthentication yes/ChallengeResponseAuthentication no/g' $ssh_config
-   # Append ssh config file with #Secured for blockchain
+   # Append ssh config file with tag so we don't run this configuration again
    echo "#Secured for blockchain" >>$ssh_config
 
    systemctl reload ssh
@@ -71,7 +71,7 @@ fi
 if [[ -z $isDSHConfigured ]]; then
    # Set remoteshell to ssh
    sed -i 's/remoteshell =rsh/remoteshell =ssh/g' $dsh_config
-   # Append dsh config file with #Configured for blockchain
+   # Append dsh config file with tag so we don't run this configuration again
    echo "#Configured for blockchain" >>$dsh_config
 fi
 
