@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ### Verify root privileges
-# If the EUID is null or unavalible, notify on prompt and crash
+# If the EUID is not 0 (root), notify on prompt and crash
 if [[ $EUID -ne 0 ]]; then
    echo "I must be opened with root privileges"
    exit 1
@@ -22,31 +22,31 @@ echo "Defined network address : $networkAddress"
 echo "Defined public key location : $sharedPubKey"
 echo "----------------"
 
-### Net File System sharing
+### Network File System sharing
 # Create shared folder if it doesn't exist
 if [[ ! -d $sharedPubKey ]]; then
    mkdir $sharedPubKey
 fi
 # Grant every right for everyone to the folder (to redo in read-only)
 chmod 777 $sharedPubKey
-# Make an export if none exist
+# Create the NFS share if it doen't exist
 if [[ ! -z existing_exports ]]; then
    echo "/mnt/pubkey $networkAddress(ro,sync,no_subtree_check)" >/etc/exports
 fi
 # Activate sharing
 exportfs -a
-# Restart NDS server
+# Restart NFS server
 systemctl restart nfs-kernel-server
 echo "----------------"
 
 ### Creating SSH keys
-# If a key isalready there, delete it
+# If a key is already there, delete it
 if [ -f $rsa_file ]; then
    rm $rsa_file
 fi
 # Generate a new pair
 ssh-keygen -f ~/.ssh/id_rsa -N "" -t rsa
-# Copy the oublic key to the shared folder
+# Copy the public key to the shared folder
 cp $rsa_file.pub $sharedPubKey
 
 ### SSH configuration
