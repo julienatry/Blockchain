@@ -55,19 +55,38 @@ Beaucoup de processus sont basés sur le temps, et ne peuvent s’exécuter conv
 
 ## Applications
 
-Voici plusieurs exemples d’applications actuelles du système distribué:
+Voici une liste d’implémentations courantes de systèmes distribués
 
- - Internet
- - Blockchain
- - Jeux multi-joueurs
- - e-mails
- - Torrents
- - Systèmes de calcul scientifique
- - Systèmes décentralisés
+### Internet
+
+Internet est un énorme réseau constitué d’une multitude de nœuds ayant des fonctions différentes mais ayant le même objectif: le partage de l’information. Cette dernière est répartie sur des machines physiques distinctes partout dans le monde, reliées entre elles par du matériel dédié au fonctionnement du réseau. Les utilisateurs utilisent également des machines qui ont le rôle de clients. Ainsi, internet est le plus grand système distribué. 
+
+### Blockchain
+
+La blockchain est l'icône des systèmes décentralisés, elle est donc indissociable du concept de système distribué. C’est une technologie de stockage et de transmission de l’information qui s’appuie sur la quantité de noeuds pour garantir la sécurité. 
+
+### Jeux multi-joueurs
+
+Les jeux multi-joueurs fonctionnent dans la grande majorité grâce à un système client-serveur: une machine unique décide des événements qu’elle transmet aux clients qui se chargent de les représenter aux joueurs. En échange, les machines des joueurs transmettent les décisions de ses derniers à la machine centrale qui utilise ses informations pour décider des événements. 
+On à donc un système étoile où chaque machine est à la fois client et serveur. 
+
+### E-mails
+
+Inventés dans les années 1970, les e-mails sont sans doute la première instance de système distribué. En effet, il s’agit d’un système en étoile élargi où les tâches de transfert et de stockage de l’information sont réparties entre les noeuds. 
+
+### Torrents
+
+Un autre exemple typique de système distribué, les torrents permettent l’échange d’information entre plusieures machines connectées sans que l’information ne soit stockée sur une machine unique. Ce système est également dépourvu de machine maître. 
+
+### Systèmes de calcul scientifique
+
+La recherche scientifique requiert parfois des calculs importants qui ne peuvent pas être assumés par un système centralisé dans la plupart des pays. La charge de calcul est alors répartie sur plusieurs machines qui travaillent simultanément et compilent leurs résultats une fois qu’elles ont achevé leur tâche.  L’Ecole Polytechnique détient un serveur dédié au calcul dont elle prête le temps processeur à différentes organisations de recherche à travers le monde. 
 
 ## Sources
 
  - [Splunk](https://www.splunk.com/en_us/data-insider/what-are-distributed-systems.html#:~:text=A%20distributed%20system%20is%20a,been%20responsible%20for%20the%20task.)
  - [Wikipedia](https://en.wikipedia.org/wiki/Distributed_computing)
+
+
 
 
