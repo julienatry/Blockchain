@@ -1,15 +1,20 @@
 #!/bin/bash
 
+#Config
 username="root"
 required_fract=75
 
 
+#Variables
 user_search=$(cat /etc/shadow | grep $username)
 dsh_output=$(dsh -g blockchain -c "cat /etc/shadow | grep $username")
 i=1
 valid=0
 invalid=0
 
+
+
+#DSH poll for user auth
 for response in $dsh_output
 do
 	response_conv=$response
@@ -28,6 +33,10 @@ done
 echo "Valid : $valid"
 echo "Invalid : $invalid"
 
+
+
+
+#Checking if required fract is reached
 fract=$(echo "scale=2; $valid/$i*100" | bc -l)
 fract_corr=$(echo "${fract%.*}")
 
