@@ -25,6 +25,7 @@ fi
 
 #Functions
 dsh_update () {
+	#DSH entry update
 	dsh_exists=$(cat $dsh_group | grep $1)
 
 	if [[ -z $dsh_exists ]]; then
@@ -37,6 +38,7 @@ dsh_update () {
 ssh_update () {
 	case $1 in
 		known_hosts )
+			#SSH known_hosts key update
 			if [[ ! -z known_hosts_exists ]]; then
 				local sshKeyScan=$(ssh-keyscan -t rsa $2)
 
@@ -49,6 +51,7 @@ ssh_update () {
 			;;
 
 		authorized_keys )
+			#SSH authorized_keys remote public key update
 			pubkey_dir="/var/pubkey${2##*.}"
 
 			if [[ ! -d $pubkey_dir ]]; then
