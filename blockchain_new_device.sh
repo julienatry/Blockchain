@@ -88,22 +88,22 @@ ssh_update () {
 #Infinite loop
 while true
 do
-	#Live hosts list + SSH/DSH updates
-	nmap_output=$(nmap $1 -n -sP $networkAddress | grep report | awk '{print $5}')
+   #Live hosts list + SSH/DSH updates
+   nmap_output=$(nmap $1 -n -sP $networkAddress | grep report | awk '{print $5}')
 
-	for ip in $nmap_output
-	do
-		if [ "${ip##*.}" -gt "100" ] && [ "${ip##*.}" -lt "200" ] && [ "$ip" != "$my_ip" ]
-		then
-			echo "----------------"
-			echo "Working on $ip"
-			echo "----------------"
+   for ip in $nmap_output
+   do
+      if [ "${ip##*.}" -gt "100" ] && [ "${ip##*.}" -lt "200" ] && [ "$ip" != "$my_ip" ]
+      then
+         echo "----------------"
+         echo "Working on $ip"
+         echo "----------------"
 
-			dsh_update $ip
-			ssh_update known_hosts $ip
-			ssh_update authorized_keys $ip
-			ssh_update reload
-		fi
-	done
-	sleep 60
+         dsh_update $ip
+         ssh_update known_hosts $ip
+         ssh_update authorized_keys $ip
+         ssh_update reload
+      fi
+   done
+   sleep 60
 done
