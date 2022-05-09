@@ -25,61 +25,61 @@ fi
 
 #Functions
 dsh_update () {
-	#DSH entry update
-	dsh_exists=$(cat $dsh_group | grep $1)
+   #DSH entry update
+   dsh_exists=$(cat $dsh_group | grep $1)
 
-	if [[ -z $dsh_exists ]]; then
-		echo $1 >> $dsh_group
-	fi
+   if [[ -z $dsh_exists ]]; then
+      echo $1 >> $dsh_group
+   fi
 
-	cat $dsh_group > /etc/dsh/machines.list
+   cat $dsh_group > /etc/dsh/machines.list
 }
 
 ssh_update () {
-	case $1 in
-		known_hosts )
-			#SSH known_hosts key update
-			if [[ ! -z known_hosts_exists ]]; then
-				local sshKeyScan=$(ssh-keyscan -t rsa $2)
+   case $1 in
+      known_hosts )
+         #SSH known_hosts key update
+         if [[ ! -z known_hosts_exists ]]; then
+            local sshKeyScan=$(ssh-keyscan -t rsa $2)
 
-				if [[ ! -z known_hosts_rsa ]]; then
-					sed -i "/$2/d" ~/.ssh/known_hosts
-				fi
+            if [[ ! -z known_hosts_rsa ]]; then
+               sed -i "/$2/d" ~/.ssh/known_hosts
+            fi
 
-				echo $sshKeyScan >> ~/.ssh/known_hosts
-			fi
-			;;
+            echo $sshKeyScan >> ~/.ssh/known_hosts
+         fi
+         ;;
 
-		authorized_keys )
-			#SSH authorized_keys remote public key update
-			pubkey_dir="/var/pubkey${2##*.}"
+      authorized_keys )
+         #SSH authorized_keys remote public key update
+         pubkey_dir="/var/pubkey${2##*.}"
 
-			if [[ ! -d $pubkey_dir ]]; then
-				mkdir $pubkey_dir
-			fi
+         if [[ ! -d $pubkey_dir ]]; then
+            mkdir $pubkey_dir
+         fi
 
 
-			mount -t nfs $2:/mnt/pubkey $pubkey_dir
+         mount -t nfs $2:/mnt/pubkey $pubkey_dir
 
-			remote_pubkey=$(<$pubkey_dir/id_rsa.pub)
-			current_pc=${remote_pubkey##*@}
-			authorized_keys_exists=$(cat ~/.ssh/authorized_keys | grep $current_pc)
-			response_length=${#authorized_keys_exists}
+         remote_pubkey=$(<$pubkey_dir/id_rsa.pub)
+         current_pc=${remote_pubkey##*@}
+         authorized_keys_exists=$(cat ~/.ssh/authorized_keys | grep $current_pc)
+         response_length=${#authorized_keys_exists}
 
-			if [[ response_length -gt 1 ]]; then
-				sed -i "/$current_pc/d" ~/.ssh/authorized_keys
-			fi
+         if [[ response_length -gt 1 ]]; then
+            sed -i "/$current_pc/d" ~/.ssh/authorized_keys
+         fi
 
-			echo $remote_pubkey >> ~/.ssh/authorized_keys
+         echo $remote_pubkey >> ~/.ssh/authorized_keys
 
-			umount $pubkey_dir
-			;;
+         umount $pubkey_dir
+         ;;
 
-		reload )
-			systemctl reload ssh
-			systemctl restart ssh
-			;;
-	esac
+      reload )
+         systemctl reload ssh
+         systemctl restart ssh
+         ;;
+   esac
 }
 
 
