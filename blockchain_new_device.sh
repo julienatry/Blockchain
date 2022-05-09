@@ -97,12 +97,7 @@ do
 			echo "----------------"
 
 			dsh_update $ip
-
 			ssh_update known_hosts $ip
-
-
-			#Remote pubkey retrieving via NFS
-
 			ssh_update authorized_keys $ip
 			ssh_update reload
 		fi
