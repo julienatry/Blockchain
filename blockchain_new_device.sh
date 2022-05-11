@@ -19,13 +19,13 @@ fi
 dsh_update() {
     dsh_exists=$(cat $dsh_group | grep $1)
     if [[ -z $dsh_exists ]]; then
-        echo $1 >>$dsh_group
+        echo $1 >> $dsh_group
     fi
     # Copy dsh group to machine list
-    cat $dsh_group >/etc/dsh/machines.list
+    cat $dsh_group > /etc/dsh/machines.list
 }
 
-#
+# Update keys and reload ssh
 ssh_update() {
     case $1 in
     known_hosts)
