@@ -43,29 +43,30 @@ ssh_update() {
 		;;
 	authorized_keys)
 		pubkey_dir="/var/pubkey${2##*.}"
-
+		# Create the folder if it doesn't exist
 		if [[ ! -d $pubkey_dir ]]; then
 			mkdir $pubkey_dir
 		fi
-
+		# Mount the folder in NFS
 		mount -t nfs $2:/mnt/pubkey $pubkey_dir
 
 		remote_pubkey=$(<$pubkey_dir/id_rsa.pub)
 		current_pc=${remote_pubkey##*@}
-		authorized_keys_exists=$(cat ~/.ssh/authorized_keys | grep $current_pc)
-		response_length=${#authorized_keys_exists}
-
-		if [[ response_length -gt 1 ]]; then
+		# Rename those two variables so it would be possible to understand tf is going on
+		authorized_keys_check=$(cat ~/.ssh/authorized_keys | grep $current_pc)
+		authorized_keys_exist=${#authorized_keys_exists}
+		# If the authorized key exists, replace the entry in the authorized keys file
+		if [[ authorized_keys_exist -gt 1 ]]; then
 			sed -i "/$current_pc/d" ~/.ssh/authorized_keys
 		fi
-
+		# Indent the remote public key to the authorized keys file
 		echo $remote_pubkey >>~/.ssh/authorized_keys
 
 		umount $pubkey_dir
 		;;
 
 	reload)
-		systemctl reload ssh
+		#systemctl reload ssh
 		systemctl restart ssh
 		;;
 	esac
@@ -86,9 +87,10 @@ while true; do
 			dsh_update $ip
 			# Updated ssh list with IP
 			ssh_update known_hosts $ip
-			#Remote pubkey retrieving via NFS
+			# Update the authorized keys list
 
 			ssh_update authorized_keys $ip
+			#  reload ssh
 			ssh_update reload
 		fi
 	done
