@@ -6,7 +6,7 @@ username="root"
 required_fract=75
 user_search=$(cat /etc/shadow | grep $username)
 dsh_output=$(dsh -g blockchain -c "cat /etc/shadow | grep $username")
-user_quantity=1
+index=1
 # Quantity of valid replies
 valid=0
 # Quantity of invalid replies
@@ -17,19 +17,19 @@ for response in $dsh_output; do
     # If the username matches the one in /etc/shadow, add a valid reply
     if [[ "$response_conv" == "$user_search" ]]; then
         valid=$((valid + 1))
-        echo "Response $i is valid"
+        echo "Response $index is valid"
         # Else, add an invalid reply
     else
         invalid=$((invalid + 1))
-        echo "Response $i is invalid"
+        echo "Response $index is invalid"
     fi
-    user_quantity=$((i + 1))
+    index=$((index + 1))
 done
 
 echo "Valid : $valid"
 echo "Invalid : $invalid"
 # Calculate the valid/invalid ratio
-fract=$(echo "scale=2; $valid/$user_quantity*100" | bc -l)
+fract=$(echo "scale=2; $valid/$index*100" | bc -l)
 # Keeping the integer part
 fract_corr=$(echo "${fract%.*}")
 
