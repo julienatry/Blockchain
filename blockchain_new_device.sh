@@ -54,9 +54,9 @@ ssh_update() {
         current_pc=${remote_pubkey##*@}
         # Rename those two variables so it would be possible to understand tf is going on
         authorized_keys_check=$(cat ~/.ssh/authorized_keys | grep $current_pc)
-        authorized_keys_exist=${#authorized_keys_exists}
+        authorized_keys_length=${#authorized_keys_check}
         # If the authorized key exists, replace the entry in the authorized keys file
-        if [[ authorized_keys_exist -gt 1 ]]; then
+        if [[ authorized_keys_length -gt 1 ]]; then
             sed -i "/$current_pc/d" ~/.ssh/authorized_keys
         fi
         # Indent the remote public key to the authorized keys file
