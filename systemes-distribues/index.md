@@ -2,7 +2,7 @@
 
 ## Concept
 
-Un système distribué est un ensemble de machines physiques connectées qui réalisent une tâche commune ou offrent un service. Ses machines communiquent par passage de messages.
+Un système distribué est un ensemble de machines physiques connectées qui réalisent une tâche commune ou offrent un service. Ces machines communiquent par passage de messages.
 Par abus de langage, on qualifie parfois de système distribué un système multiprocesseur qui partage une mémoire commune. 
 Ce concept est opposé au système centralisé, composé d'une machine physique unique. 
 
@@ -20,7 +20,7 @@ Un système distribué étant par définition réparti sur plusieurs machines, i
 
 Un système distribué bien configuré permet à ses nœuds de travailler indépendamment. En plus de permettre des opérations de maintenance sans diminution de la qualité de service (comme vu précédemment), ceci fournit un environnement propice au plug-and-play. 
 
-Les nœuds communiquant par messages, les machines individuelles peuvent fonctionner avec des versions logicielles ou de systèmes d'exploitation différents. Ceci permet de faire évoluer le parc matériel plus facilement sans problèmes de compatibilité. 
+Les nœuds communiquant par messages, les machines individuelles peuvent fonctionner avec des versions logicielles ou de systèmes d'exploitation différents. Ceci permet de faire évoluer le parc matériel plus facilement sans problème de compatibilité.
 
 #### Vitesse
 
@@ -42,7 +42,7 @@ Tout comme les avantages, les inconvénients dépendent beaucoup de la gestion d
 L’augmentation de machines physiques est une évolution à double tranchant. En effet, la division en plusieurs noeuds comporte les inconvénients suivants:
 
  - Augmentation des ressources nécessaires au bon fonctionnement: que ce soit d’un point de vue matériel, énergétique ou humain, un système plus complexe nécessite plus de ressources, ce qui augmente fatalement le coût d’exploitation. Ce point est en partie contrecarré par l’utilisation de clouds, offres qui diminuent le prix d’exploitation en faisant de l’exploitation de masse. 
- - Dépendance du réseau: dans le cas d’un système étendu géographiquement, la dépendance de réseaux publics ou gérés par des prestataires externes crée des dangers supplémentaires: la diminution ou à perte des performances du réseau nuisent gravement au fonctionnement du réseau et ne peuvent pas être contrôlés par la politique QoS du système. 
+ - Dépendance du réseau: dans le cas d’un système étendu géographiquement, la dépendance de réseaux publics ou gérés par des prestataires externes crée des dangers supplémentaires: la diminution ou la perte des performances du réseau nuisent gravement au fonctionnement du réseau et ne peuvent pas être contrôlés par la politique QoS du système. 
  - Difficulté d’exploitation: la complexité élevée par rapport aux homologues centralisés induit une demande de collaborateurs formés pour ce genre d’exploitation, ainsi que des moyens de gestion spécifiques plus poussés. 
 
 #### Sécurité
@@ -67,7 +67,7 @@ La blockchain est l'icône des systèmes décentralisés, elle est donc indissoc
 
 ### Jeux multi-joueurs
 
-Les jeux multi-joueurs fonctionnent dans la grande majorité grâce à un système client-serveur: une machine unique décide des événements qu’elle transmet aux clients qui se chargent de les représenter aux joueurs. En échange, les machines des joueurs transmettent les décisions de ses derniers à la machine centrale qui utilise ses informations pour décider des événements. 
+Les jeux multi-joueurs fonctionnent dans la grande majorité grâce à un système client-serveur: une machine unique décide des événements qu’elle transmet aux clients qui se chargent de les représenter aux joueurs. En échange, les machines des joueurs transmettent les décisions de ces derniers à la machine centrale qui utilise ses informations pour décider des événements. 
 On à donc un système étoile où chaque machine est à la fois client et serveur. 
 
 ### E-mails
@@ -76,7 +76,7 @@ Inventés dans les années 1970, les e-mails sont sans doute la première instan
 
 ### Torrents
 
-Un autre exemple typique de système distribué, les torrents permettent l’échange d’information entre plusieures machines connectées sans que l’information ne soit stockée sur une machine unique. Ce système est également dépourvu de machine maître. 
+Un autre exemple typique de système distribué, les torrents permettent l’échange d’information entre plusieurs machines connectées sans que l’information ne soit stockée sur une machine unique. Ce système est également dépourvu de machine maître. 
 
 ### Systèmes de calcul scientifique
 
