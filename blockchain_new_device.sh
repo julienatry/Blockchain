@@ -2,7 +2,7 @@
 
 ### Variables
 networkAddress="192.168.239.0/24"
-my_ip=$(ifconfig | grep 192.168.239 | awk '{print $2}')
+my_ip=$(ifconfig | grep ${networkAddress%.*} | awk '{print $2}')
 known_hosts_exists=$(cat ~/.ssh/known_hosts | grep $2)
 known_hosts_rsa=$(cat ~/.ssh/known_hosts | grep $sshKeyScan)
 dsh_group="/etc/dsh/group/blockchain"
