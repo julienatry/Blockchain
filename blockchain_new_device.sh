@@ -14,6 +14,10 @@ if [[ $EUID -ne 0 ]]; then
     exit 1
 fi
 
+### Blacklist init
+# Read the "blacklist" file into the "blacklist" var (array)
+readarray -t blacklist < blacklist
+
 ### Functions
 # Add the IP in the dsh group if it doesn't exist
 dsh_update() {
@@ -78,8 +82,8 @@ while true; do
     nmap_output=$(nmap $1 -n -sP $networkAddress | grep report | awk '{print $5}')
     # For each address in the scan
     for ip in $nmap_output; do
-        # If the last number of the IP is between 100 and 200 and it isn't my IP
-        if [ "${ip##*.}" -gt "100" ] && [ "${ip##*.}" -lt "200" ] && [ "$ip" != "$my_ip" ]; then
+        # If the current processing IP is not mine and not blacklisted
+        if [ "$ip" != "$my_ip" ] && [ ! "${blacklist[*]}" =~ "${ip}" ]; then
             echo "----------------"
             echo "Working on $ip"
             echo "----------------"
