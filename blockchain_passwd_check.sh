@@ -12,6 +12,13 @@ valid=0
 # Quantity of invalid replies
 invalid=0
 
+### Verify root privileges
+# If the EUID is not 0 (root), notify on prompt and crash
+if [[ $EUID -ne 0 ]]; then
+   echo "I must be opened with root privileges"
+   exit 1
+fi
+
 for response in $dsh_output; do
     response_conv=$response
     # If the username matches the one in /etc/shadow, add a valid reply
