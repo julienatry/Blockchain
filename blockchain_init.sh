@@ -1,12 +1,5 @@
 #!/bin/bash
 
-### Verify root privileges
-# If the EUID is not 0 (root), notify on prompt and crash
-if [[ $EUID -ne 0 ]]; then
-   echo "I must be opened with root privileges"
-   exit 1
-fi
-
 ### Variables
 networkAddress="192.168.239.0/24"
 existing_exports=$(cat /etc/exports | grep /mnt/pubkey)
@@ -16,6 +9,13 @@ ssh_config="/etc/ssh/sshd_config"
 dsh_config="/etc/dsh/dsh.conf"
 isSSHSecured=$(cat $ssh_config | grep "Secured for blockchain")
 isDSHConfigured=$(cat $dsh_config | grep "Configured for blockchain")
+
+### Verify root privileges
+# If the EUID is not 0 (root), notify on prompt and crash
+if [[ $EUID -ne 0 ]]; then
+   echo "I must be opened with root privileges"
+   exit 1
+fi
 
 ### Net address and key location notification on prompt (what for?)
 echo "Defined network address : $networkAddress"
