@@ -83,7 +83,7 @@ while true; do
     # For each address in the scan
     for ip in $nmap_output; do
         # If the current processing IP is not mine and not blacklisted
-        if [ "$ip" != "$my_ip" ] && [ ! "${blacklist[*]}" =~ "${ip}" ]; then
+        if [ "$ip" != "$my_ip" ] && [[ ! "${blacklist[*]}" =~ "${ip}" ]]; then
             echo "----------------"
             echo "Working on $ip"
             echo "----------------"
