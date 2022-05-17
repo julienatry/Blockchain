@@ -8,7 +8,7 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 ### Variables
-networkAddress="192.168.80.0/24"
+networkAddress="192.168.239.0/24"
 existing_exports=$(cat /etc/exports | grep /mnt/pubkey)
 rsa_file=~/.ssh/id_rsa
 sharedPubKey="/mnt/pubkey/"
