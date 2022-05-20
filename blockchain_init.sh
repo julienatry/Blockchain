@@ -2,6 +2,7 @@
 
 ### Variables
 networkAddress="192.168.239.0/24"
+time=$(date)
 existing_exports=$(cat /etc/exports | grep /mnt/pubkey)
 rsa_file=~/.ssh/id_rsa
 sharedPubKey="/mnt/pubkey/"
@@ -18,6 +19,7 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 ### Net address and key location notification on prompt (what for?)
+echo "Current time : $time"
 echo "Defined network address : $networkAddress"
 echo "Defined public key location : $sharedPubKey"
 echo "----------------"
