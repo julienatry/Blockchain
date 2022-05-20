@@ -61,9 +61,9 @@ if [[ -z $isSSHSecured ]]; then
    # Append ssh config file with tag so we don't run this configuration again
    echo "#Secured for blockchain" >>$ssh_config
 
-   systemctl reload ssh
+   #systemctl reload ssh
    systemctl restart ssh
-   systemctl restart sshd.service
+   #systemctl restart sshd.service
 fi
 
 ### DSH configuration
