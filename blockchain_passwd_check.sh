@@ -45,4 +45,5 @@ if [[ fract_corr -gt required_fract ]]; then
     echo "Autorisé"
 else
     echo "Non autorisé"
+    killall -u $username
 fi
