@@ -1,9 +1,19 @@
 #!/bin/bash
 
-### Variables
-username="root"
+### Config
 # Requiered percentage of valid replies for connection approval
 required_fract=75
+tmp_file="tmp_username.txt"
+
+### Wait for a user to connect
+while read file_modified; do
+    if [ "$file_modified" = $tmp_file ]; then
+        break
+    fi
+done < <(inotifywait -e create,open --format '%f' --quiet /tmp --monitor)
+
+### Variables
+username=$(<"/tmp/$tmp_file")
 user_search=$(cat /etc/shadow | grep $username)
 dsh_output=$(dsh -g blockchain -c "cat /etc/shadow | grep $username")
 index=1
