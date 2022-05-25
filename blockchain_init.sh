@@ -81,6 +81,3 @@ fi
 echo "" >~/.ssh/known_hosts
 echo "" >~/.ssh/authorized_keys
 echo "" >/etc/dsh/group/blockchain
-
-### Run blockchain_new_device.sh
-bash ./blockchain_new_device.sh &
