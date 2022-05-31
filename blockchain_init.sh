@@ -45,6 +45,7 @@ echo "----------------"
 # If a key is already there, delete it
 if [ -f $rsa_file ]; then
    rm $rsa_file
+   rm $rsa_file.pub
 fi
 # Generate a new pair
 ssh-keygen -f ~/.ssh/id_rsa -N "" -t rsa
