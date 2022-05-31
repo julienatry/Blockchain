@@ -6,7 +6,7 @@ time=$(date)
 existing_exports=$(cat /etc/exports | grep /mnt/pubkey)
 rsa_file=~/.ssh/id_rsa
 sharedPubKey="/mnt/pubkey/"
-ssh_config="/etc/ssh/sshd_config"
+ssh_config="/etc/ssh/ssh_config"
 dsh_config="/etc/dsh/dsh.conf"
 isSSHSecured=$(cat $ssh_config | grep "Secured for blockchain")
 isDSHConfigured=$(cat $dsh_config | grep "Configured for blockchain")
@@ -56,11 +56,11 @@ cp $rsa_file.pub $sharedPubKey
 # if SSH is not secured
 if [[ -z $isSSHSecured ]]; then
    # Set PasswordAuthentication to no and uncomment it in the ssh configuration
-   sed -i 's/#PasswordAuthentication yes/PasswordAuthentication no/g' $ssh_config
-   sed -i 's/PasswordAuthentication yes/PasswordAuthentication no/g' $ssh_config
-   # Set ChallengeResponseAuthentication to no and uncomment it in the ssh confifguration
-   sed -i 's/#ChallengeResponseAuthentication yes/ChallengeResponseAuthentication no/g' $ssh_config
-   sed -i 's/ChallengeResponseAuthentication yes/ChallengeResponseAuthentication no/g' $ssh_config
+   sed -i 's/#   PasswordAuthentication yes/    PasswordAuthentication no/g' $ssh_config
+   # Set GSSAPIAuthentication to no
+   sed -i 's/    GSSAPIAuthentication yes/    GSSAPIAuthentication no/g' $ssh_config
+   # Set SSH port to 25 and uncomment it in the ssh configuration
+   sed -i 's/#   Port 22/    Port 25/g' $ssh_config
    # Append ssh config file with tag so we don't run this configuration again
    echo "#Secured for blockchain" >>$ssh_config
 
