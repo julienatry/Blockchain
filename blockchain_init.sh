@@ -29,8 +29,8 @@ echo "----------------"
 if [[ ! -d $sharedPubKey ]]; then
    mkdir $sharedPubKey
 fi
-# Grant every right for everyone to the folder (to redo in read-only)
-chmod 777 $sharedPubKey
+# Grant full access to owner (root), read-only for everyone else
+chmod 744 $sharedPubKey
 # Create the NFS share if it doen't exist
 if [[ ! -z existing_exports ]]; then
    echo "/mnt/pubkey $networkAddress(ro,sync,no_subtree_check)" >/etc/exports
