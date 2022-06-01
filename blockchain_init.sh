@@ -18,7 +18,7 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 
-### Net address and key location notification on prompt (what for?)
+### Net address and key location notification on prompt (debug purposes - delete for production?)
 echo "Current time : $time"
 echo "Defined network address : $networkAddress"
 echo "Defined public key location : $sharedPubKey"
