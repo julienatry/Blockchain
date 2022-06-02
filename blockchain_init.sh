@@ -1,5 +1,12 @@
 #!/bin/bash
 
+### Config
+networkAddress="192.168.239.0/24"
+rsa_file=~/.ssh/id_rsa
+sharedPubKey="/mnt/pubkey/"
+ssh_config="/etc/ssh/ssh_config"
+dsh_config="/etc/dsh/dsh.conf"
+
 ### Verify root privileges
 # If the EUID is not 0 (root), notify on prompt and crash
 if [[ $EUID -ne 0 ]]; then
@@ -8,13 +15,8 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 ### Variables
-networkAddress="192.168.239.0/24"
 time=$(date)
 existing_exports=$(cat /etc/exports | grep /mnt/pubkey)
-rsa_file=~/.ssh/id_rsa
-sharedPubKey="/mnt/pubkey/"
-ssh_config="/etc/ssh/ssh_config"
-dsh_config="/etc/dsh/dsh.conf"
 isSSHSecured=$(cat $ssh_config | grep "Secured for blockchain")
 isDSHConfigured=$(cat $dsh_config | grep "Configured for blockchain")
 
