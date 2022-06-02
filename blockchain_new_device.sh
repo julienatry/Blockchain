@@ -38,7 +38,7 @@ ssh_update() {
         # If the IP is already known
         if [[ ! -z known_hosts_exists ]]; then
             # Search for its key
-            local sshKeyScan=$(ssh-keyscan -t rsa $2)
+            local sshKeyScan=$(ssh-keyscan -p 25 -t rsa $2)
             # If a key already exists, replace it (used when computers reboot)
             if [[ ! -z known_hosts_rsa ]]; then
                 sed -i "/$2/d" ~/.ssh/known_hosts
