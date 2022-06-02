@@ -3,7 +3,6 @@
 ### Config
 # Requiered percentage of valid replies for connection approval
 required_fract=75
-tmp_file="tmp_username.txt"
 
 ### Wait for a user to connect
 while read file_modified; do
