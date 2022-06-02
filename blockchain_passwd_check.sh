@@ -4,6 +4,13 @@
 # Requiered percentage of valid replies for connection approval
 required_fract=75
 
+### Verify root privileges
+# If the EUID is not 0 (root), notify on prompt and crash
+if [[ $EUID -ne 0 ]]; then
+   echo "I must be opened with root privileges"
+   exit 1
+fi
+
 ### Wait for a user to connect
 connected_username=$(who | grep totoadmin)
 while true; do
@@ -23,13 +30,6 @@ index=1
 valid=0
 # Quantity of invalid replies
 invalid=0
-
-### Verify root privileges
-# If the EUID is not 0 (root), notify on prompt and crash
-if [[ $EUID -ne 0 ]]; then
-   echo "I must be opened with root privileges"
-   exit 1
-fi
 
 for response in $dsh_output; do
     response_conv=$response

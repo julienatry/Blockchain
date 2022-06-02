@@ -1,18 +1,18 @@
 #!/bin/bash
 
-### Variables
-networkAddress="192.168.239.0/24"
-my_ip=$(ifconfig | grep ${networkAddress%.*} | awk '{print $2}')
-known_hosts_exists=$(cat ~/.ssh/known_hosts | grep $2)
-known_hosts_rsa=$(cat ~/.ssh/known_hosts | grep $sshKeyScan)
-dsh_group="/etc/dsh/group/blockchain"
-
 ### Verify root privileges
 # If the EUID is not 0 (root), notify on prompt and crash
 if [[ $EUID -ne 0 ]]; then
     echo "I must be opened with root privileges"
     exit 1
 fi
+
+### Variables
+networkAddress="192.168.239.0/24"
+my_ip=$(ifconfig | grep ${networkAddress%.*} | awk '{print $2}')
+known_hosts_exists=$(cat ~/.ssh/known_hosts | grep $2)
+known_hosts_rsa=$(cat ~/.ssh/known_hosts | grep $sshKeyScan)
+dsh_group="/etc/dsh/group/blockchain"
 
 ### Blacklist init
 # Read the "blacklist" file into the "blacklist" var (array)
