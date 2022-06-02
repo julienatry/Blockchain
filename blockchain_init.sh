@@ -32,7 +32,7 @@ if [[ ! -d $sharedPubKey ]]; then
    mkdir $sharedPubKey
 fi
 # Grant full access to owner (root), read-only for everyone else
-chmod 744 $sharedPubKey
+chmod 755 $sharedPubKey
 # Create the NFS share if it doen't exist
 if [[ ! -z existing_exports ]]; then
    echo "/mnt/pubkey $networkAddress(ro,sync,no_subtree_check)" >/etc/exports
