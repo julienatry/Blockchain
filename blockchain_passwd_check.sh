@@ -13,8 +13,8 @@ fi
 
 while true; do
     ### Wait for a user to connect
-    connected_username=$(who | grep totoadmin)
     while true; do
+        connected_username=$(who | grep totoadmin)
         if [[ ! -z $connected_username ]]; then
             echo $connected_username
             username=$(echo $connected_username | awk '{print $1}')
