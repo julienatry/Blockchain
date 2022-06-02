@@ -61,8 +61,8 @@ if [[ -z $isSSHSecured ]]; then
    sed -i 's/#   PasswordAuthentication yes/    PasswordAuthentication no/g' $ssh_config
    # Set GSSAPIAuthentication to no
    sed -i 's/    GSSAPIAuthentication yes/    GSSAPIAuthentication no/g' $ssh_config
-   # Set SSH port to 25 and uncomment it in the ssh configuration
-   sed -i 's/#   Port 22/    Port 25/g' $ssh_config
+   # Set SSH port to 22 and uncomment it in the ssh configuration
+   sed -i 's/#   Port 22/    Port 22/g' $ssh_config
    # Append ssh config file with tag so we don't run this configuration again
    echo "#Secured for blockchain" >>$ssh_config
 
