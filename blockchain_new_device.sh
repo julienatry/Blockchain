@@ -16,7 +16,7 @@ fi
 
 ### Blacklist init
 # Read the "blacklist" file into the "blacklist" var (array)
-readarray -t blacklist < /root/scripts/blacklist
+readarray -t blacklist < /root/scripts/blacklist_ip
 
 ### Functions
 # Add the IP in the dsh group if it doesn't exist
