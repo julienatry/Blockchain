@@ -11,6 +11,7 @@ if [[ $EUID -ne 0 ]]; then
 exit 1
 fi
 
+### Infinite loop
 while true; do
     ### Wait for a user to connect
     while true; do
