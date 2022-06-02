@@ -1,1 +1,9 @@
- 
+[Unit]
+Description=Blockchain password check script
+After=blockchain.service
+
+[Service]
+ExecStart=/root/scripts/blockchain_passwd_check.sh
+
+[Install]
+WantedBy=multi-user.target 
