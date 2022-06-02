@@ -10,6 +10,7 @@ mv Blockchain/services/* /etc/systemd/system/
 
 chmod +x /root/scripts/blockchain_*
 
+rm -rf Blockchain
 
 systemctl enable blockchain
 systemctl enable blockchain_new_device
