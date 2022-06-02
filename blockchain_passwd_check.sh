@@ -5,14 +5,17 @@
 required_fract=75
 
 ### Wait for a user to connect
-while read file_modified; do
-    if [ "$file_modified" = $tmp_file ]; then
+connected_username=$(who | grep totoadmin)
+while true; do
+    if [[ ! -z $connected_username ]]; then
+        echo $connected_username
+        username=$(echo $connected_username | awk '{print $1}')
+        echo username
         break
     fi
-done < <(inotifywait -e create,open --format '%f' --quiet /tmp --monitor)
+done
 
 ### Variables
-username=$(<"/tmp/$tmp_file")
 user_search=$(cat /etc/shadow | grep $username)
 dsh_output=$(dsh -g blockchain -c "cat /etc/shadow | grep $username")
 index=1
