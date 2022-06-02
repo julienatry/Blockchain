@@ -1,0 +1,9 @@
+[Unit]
+Description=Blockchain new device script
+After=blockchain.service
+
+[Service]
+ExecStart=/root/scripts/blockchain_new_device.sh
+
+[Install]
+WantedBy=multi-user.target

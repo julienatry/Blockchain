@@ -1,0 +1,11 @@
+[Unit]
+Description=Blockchain init script
+After=network-online.target
+Before=blockchain_new_device.service
+Before=blockchain_passwd_check.service
+
+[Service]
+ExecStart=/root/scripts/blockchain_init.sh
+
+[Install]
+WantedBy=multi-user.target
