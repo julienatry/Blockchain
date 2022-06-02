@@ -12,7 +12,6 @@ exit 1
 fi
 
 while true; do
-
     ### Wait for a user to connect
     connected_username=$(who | grep totoadmin)
     while true; do
