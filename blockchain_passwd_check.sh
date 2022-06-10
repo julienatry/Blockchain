@@ -16,10 +16,12 @@ while true; do
     ### Wait for a user to connect
     while true; do
         connected_username=$(who | grep totoadmin)
+        # When the user tries to connect
         if [[ ! -z $connected_username ]]; then
             echo $connected_username
             username=$(echo $connected_username | awk '{print $1}')
             echo username
+            # Leave the loop
             break
         fi
     done
@@ -35,7 +37,7 @@ while true; do
 
     for response in $dsh_output; do
         response_conv=$response
-        # If the username matches the one in /etc/shadow, add a valid reply
+        # If the username associated hash matches the one our /etc/shadow, add a valid reply
         if [[ "$response_conv" == "$user_search" ]]; then
             valid=$((valid + 1))
             echo "Response $index is valid"
