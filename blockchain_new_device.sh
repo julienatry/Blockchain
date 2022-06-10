@@ -17,7 +17,7 @@ known_hosts_exists=$(cat ~/.ssh/known_hosts | grep $2)
 known_hosts_rsa=$(cat ~/.ssh/known_hosts | grep $sshKeyScan)
 
 ### Blacklist init
-# Read the "blacklist" file into the "blacklist" var (array)
+# Read the "blacklist_ip" file into the "blacklist" var (array)
 readarray -t blacklist < /root/scripts/blacklist_ip
 
 ### Functions
