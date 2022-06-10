@@ -20,7 +20,7 @@ existing_exports=$(cat /etc/exports | grep /mnt/pubkey)
 isSSHSecured=$(cat $ssh_config | grep "Secured for blockchain")
 isDSHConfigured=$(cat $dsh_config | grep "Configured for blockchain")
 
-### Net address and key location notification on prompt (debug purposes - delete for production?)
+### Net address and key location notification on prompt (debug purposes)
 echo "Current time : $time"
 echo "Defined network address : $networkAddress"
 echo "Defined public key location : $sharedPubKey"
@@ -37,8 +37,8 @@ chmod 755 $sharedPubKey
 if [[ ! -z existing_exports ]]; then
    echo "/mnt/pubkey $networkAddress(ro,sync,no_subtree_check)" >/etc/exports
 fi
-# Activate sharing
-exportfs -a
+# Re-read config file and apply
+exportfs -ra
 # Restart NFS server
 systemctl restart nfs-kernel-server
 echo "----------------"
