@@ -35,15 +35,16 @@ dsh_update() {
 ssh_update() {
     case $1 in
     known_hosts)
-        # If the IP is already known
+        # If the IP is already in known_hosts
         if [[ ! -z known_hosts_exists ]]; then
-            # Search for its key
+            # Retrieve the remote key
             local sshKeyScan=$(ssh-keyscan -t rsa $2)
-            # If a key already exists, replace it (used when computers reboot)
+            # If a key already exists, delete it
             if [[ ! -z known_hosts_rsa ]]; then
                 sed -i "/$2/d" ~/.ssh/known_hosts
             fi
 
+            # Write the new key in known_hosts
             echo $sshKeyScan >>~/.ssh/known_hosts
         fi
         ;;
@@ -53,15 +54,14 @@ ssh_update() {
         if [[ ! -d $pubkey_dir ]]; then
             mkdir $pubkey_dir
         fi
-        # Mount the folder in NFS
+        # Mount the folder using NFS
         mount -t nfs $2:/mnt/pubkey $pubkey_dir
 
         remote_pubkey=$(<$pubkey_dir/id_rsa.pub)
         current_pc=${remote_pubkey##*@}
-        # Rename those two variables so it would be possible to understand tf is going on
         authorized_keys_check=$(cat ~/.ssh/authorized_keys | grep $current_pc)
         authorized_keys_length=${#authorized_keys_check}
-        # If the authorized key exists, replace the entry in the authorized keys file
+        # If the remote key already exists in local "authorized_keys", replace it with the new one
         if [[ authorized_keys_length -gt 1 ]]; then
             sed -i "/$current_pc/d" ~/.ssh/authorized_keys
         fi
@@ -91,11 +91,11 @@ while true; do
             echo "----------------"
             # Update dsh list with the IP
             dsh_update $ip
-            # Updated ssh list with IP
+            # Update known_hosts file
             ssh_update known_hosts $ip
-            # Update the authorized keys list
+            # Update authorized_keys file
             ssh_update authorized_keys $ip
-            #  reload ssh
+            # Reload ssh
             ssh_update reload
         fi
     done
