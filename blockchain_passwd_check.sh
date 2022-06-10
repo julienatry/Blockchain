@@ -2,7 +2,7 @@
 
 ### Config
 # Requiered percentage of valid replies for connection approval
-required_fract=75
+required_fract=60
 
 ### Verify root privileges
 # If the EUID is not 0 (root), notify on prompt and crash
