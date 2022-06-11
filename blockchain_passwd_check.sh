@@ -59,7 +59,6 @@ while true; do
     # If the obtained ratio is greater than the minimum required one, autorize the connection
     if [[ fract_corr -gt required_fract ]]; then
         echo "Autorisé"
-        exit 0
     else
         echo "Non autorisé"
         killall -u $username
