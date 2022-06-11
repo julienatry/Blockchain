@@ -27,7 +27,7 @@ while true; do
     done
 
     ### Variables
-    user_search=$(cat /etc/shadow | grep $username)
+    local_hash=$(cat /etc/shadow | grep $username)
     dsh_output=$(dsh -g blockchain -c "cat /etc/shadow | grep $username")
     index=1
     # Quantity of valid replies
@@ -38,7 +38,7 @@ while true; do
     for response in $dsh_output; do
         response_conv=$response
         # If the username associated hash matches the one our /etc/shadow, add a valid reply
-        if [[ "$response_conv" == "$user_search" ]]; then
+        if [[ "$response_conv" == "$local_hash" ]]; then
             valid=$((valid + 1))
             echo "Response $index is valid"
             # Else, add an invalid reply
