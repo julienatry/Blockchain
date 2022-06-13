@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo apt update && sudo apt install -y openssh-server dsh nmap nfs-kernel-server nfs-common net-tools
+sudo apt update && sudo apt install -y openssh-server dsh nmap nfs-kernel-server nfs-common net-tools git
 
 git clone https://github.com/julienatry/Blockchain.git
 
