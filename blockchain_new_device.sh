@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ### Config
-networkAddress="192.168.1.0/24"
+networkAddress="192.168.134.0/24"
 dsh_group="/etc/dsh/group/blockchain"
 
 ### Verify root privileges
