@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ### Config
-networkAddress="192.168.1.0/24"
+networkAddress="192.168.134.0/24"
 rsa_file=~/.ssh/id_rsa
 sharedPubKey="/mnt/pubkey/"
 ssh_config="/etc/ssh/ssh_config"
